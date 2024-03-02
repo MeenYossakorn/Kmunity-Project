@@ -3,6 +3,7 @@ import 'package:kmunity_se/Screens/Login_screen.dart';
 import 'package:kmunity_se/Screens/Menu_screen.dart';
 import 'package:kmunity_se/Screens/User_screen.dart';
 import 'package:get/get.dart';
+import 'package:kmunity_se/Screens/home_screen.dart';
 import 'package:kmunity_se/constant/constant.dart';
 
 class Bottomnavigationbar extends StatefulWidget {
@@ -69,7 +70,7 @@ class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
   final screens = [
-    LoginScreen(),
+    homescreen(),
     Container(
       color: Colors.black,
     ),
