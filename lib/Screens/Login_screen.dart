@@ -193,11 +193,29 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("please contact the "),
-                        Text("------------------- "),
+                        Text(
+                          "please contact the ",
+                          style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.orange,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          "Library staff",
+                          style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.orange,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(
