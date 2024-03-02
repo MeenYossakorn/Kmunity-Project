@@ -1,14 +1,37 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:kmunity_se/component/My_IconButton.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http ;
 
-class userscreen extends StatelessWidget {
-  userscreen({super.key});
-
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
+class userscreen extends StatefulWidget {
+  const userscreen({super.key});
 
   @override
+  State<userscreen> createState() => _userscreenState();
+}
+
+class _userscreenState extends State<userscreen> {
+  String product ='';
+  Future<void> getrecord() async {
+    String uri = "http://10.0.2.2/kmunity_se/user1.php";
+    
+    try {
+      var response = await http.get(Uri.parse(uri));
+      setState(() {
+        product = jsonDecode(response.body)['name'];
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+   void initState() {
+    getrecord();
+    super.initState();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.orange,
@@ -72,7 +95,7 @@ class userscreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "Chinpasit ounsiri",
+                            '$product',
                             style: GoogleFonts.inter(
                               // textStyle: Theme.of(context).textTheme.titleLarge,
                               fontSize: 20,
