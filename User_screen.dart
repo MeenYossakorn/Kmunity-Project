@@ -1,42 +1,18 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:kmunity_se/component/My_IconButton.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
 
-class userscreen extends StatefulWidget {
+class userscreen extends StatelessWidget {
   userscreen({super.key});
 
-  @override
-  State<userscreen> createState() => _userscreenState();
-}
-
-class _userscreenState extends State<userscreen> {
-  List userdata = [];
-
-  Future<void> getracord() async {
-    String uri = "http://10.0.2.2/kmunity_se/user1.php";
-    try {
-      var responese = await http.get(Uri.parse(uri));
-      setState(() {
-        userdata = jsonDecode(responese.body);
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
 
   @override
-  void initState() {
-    getracord();
-    super.initState();
-  }
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.orange,
       body: Container(
-        
           decoration: const BoxDecoration(
               gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -76,7 +52,6 @@ class _userscreenState extends State<userscreen> {
                       width: 310,
                       height: 280,
                       child: Column(
-                        
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Positioned(
@@ -97,7 +72,7 @@ class _userscreenState extends State<userscreen> {
                             ),
                           ),
                           Text(
-                            userdata[0]["name"],
+                            "Chinpasit ounsiri",
                             style: GoogleFonts.inter(
                               // textStyle: Theme.of(context).textTheme.titleLarge,
                               fontSize: 20,
