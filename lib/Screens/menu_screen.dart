@@ -60,42 +60,65 @@ class menuscreen extends StatelessWidget {
                   color: Colors.grey, // เปลี่ยนสีเป็นเทา
                   borderRadius: BorderRadius.circular(20),
                 ),
-                height: height * 0.76, // ปรับความสูงของ Container สีเทา
+                height: height * 0.68, // ปรับความสูงของ Container สีเทา
                 width: width - 40,
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 1.1,
-                    mainAxisSpacing: 25,
-                  ),
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: imgIcon.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {},
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(25, 35, 25, 0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                          border: Border.all(
-                            color: Colors.blue, // สีของเส้นขอบ
-                            width: 5, // ความกว้างของเส้นขอบ
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0,
+                      20.0), // เพิ่มพื้นที่ด้านล่างของ GridView.builder
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 1.1,
+                      mainAxisSpacing: 25,
+                    ),
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: imgIcon.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {},
+                        child: Padding(
+                          padding: const EdgeInsets.all(
+                              10.0), // ปรับตำแหน่งทั้งสี่ด้านของ Column
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: Colors.blue, // สีของเส้นขอบ
+                                    width: 5, // ความกว้างของเส้นขอบ
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(
+                                      15.0), // ปรับตำแหน่งของภาพ
+                                  child: Image.asset(
+                                    imgIcon[index],
+                                    width: 60,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                  height:
+                                      5), // เพิ่มระยะห่างระหว่างภาพและข้อความ
+                              Text(
+                                imgName[index],
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Image.asset(
-                              imgIcon[index],
-                              width: 75,
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
@@ -105,3 +128,4 @@ class menuscreen extends StatelessWidget {
     );
   }
 }
+
