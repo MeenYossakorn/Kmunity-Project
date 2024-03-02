@@ -1,9 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kmunity_se/component/My_IconButton.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http ;
+import 'package:kmunity_se/component/databaseuser.dart';
+
 
 class userscreen extends StatefulWidget {
   const userscreen({super.key});
@@ -13,25 +13,7 @@ class userscreen extends StatefulWidget {
 }
 
 class _userscreenState extends State<userscreen> {
-  String product ='';
-  Future<void> getrecord() async {
-    String uri = "http://10.0.2.2/kmunity_se/user1.php";
-    
-    try {
-      var response = await http.get(Uri.parse(uri));
-      setState(() {
-        product = jsonDecode(response.body)['name'];
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
-
   @override
-   void initState() {
-    getrecord();
-    super.initState();
-  }
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.orange,
@@ -94,8 +76,9 @@ class _userscreenState extends State<userscreen> {
                               height: 134,
                             ),
                           ),
+                          
                           Text(
-                            '$product',
+                            'chinpasit ounsiri',
                             style: GoogleFonts.inter(
                               // textStyle: Theme.of(context).textTheme.titleLarge,
                               fontSize: 20,
@@ -125,7 +108,9 @@ class _userscreenState extends State<userscreen> {
                             ],
                           )
                         ],
-                      ))),
+                      )
+                      )
+                      ),
               Positioned(
                   top: 408,
                   left: 15,
