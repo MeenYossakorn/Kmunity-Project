@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kmunity_se/Screens/BookingBook_screen.dart';
 
 class menuscreen extends StatelessWidget {
   menuscreen({super.key});
@@ -18,6 +19,13 @@ class menuscreen extends StatelessWidget {
     "Movie",
     "Feedback"
   ];
+  List totap = [
+    bookingbookscreen(),
+    bookingbookscreen(),
+    bookingbookscreen(),
+    bookingbookscreen(),
+    bookingbookscreen()
+  ];
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
@@ -29,7 +37,7 @@ class menuscreen extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.orange, Colors.white],
+            colors: [Color(0xFFFF7500), Colors.white],
           ),
         ),
         child: Column(
@@ -43,7 +51,7 @@ class menuscreen extends StatelessWidget {
                   offset: Offset(0, -20), // ลองปรับค่า offset เพื่อเลื่อนขึ้น
                   child: Text(
                     "MENU",
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       textStyle: Theme.of(context).textTheme.titleLarge,
                       fontSize: 40,
                       fontWeight: FontWeight.w800,
@@ -57,8 +65,15 @@ class menuscreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.grey, // เปลี่ยนสีเป็นเทา
+                  color: Colors.white, // เปลี่ยนสีเป็นเทา
                   borderRadius: BorderRadius.circular(20),
+                  boxShadow: const [
+                    BoxShadow(
+                      blurRadius: 10,
+                      color: Color(0xA2000000),
+                      offset: Offset(0, 0),
+                    )
+                  ],
                 ),
                 height: height * 0.68, // ปรับความสูงของ Container สีเทา
                 width: width - 40,
@@ -77,7 +92,12 @@ class menuscreen extends StatelessWidget {
                     itemCount: imgIcon.length,
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>totap[index]),
+                          );
+                        },
                         child: Padding(
                           padding: const EdgeInsets.all(
                               10.0), // ปรับตำแหน่งทั้งสี่ด้านของ Column
@@ -89,7 +109,7 @@ class menuscreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(20),
                                   color: Colors.white,
                                   border: Border.all(
-                                    color: Colors.blue, // สีของเส้นขอบ
+                                    color: Colors.orange, // สีของเส้นขอบ
                                     width: 5, // ความกว้างของเส้นขอบ
                                   ),
                                 ),
@@ -128,4 +148,3 @@ class menuscreen extends StatelessWidget {
     );
   }
 }
-

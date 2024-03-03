@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kmunity_se/Screens/Login_screen.dart';
 import 'package:kmunity_se/Screens/User_screen.dart';
 import 'package:kmunity_se/Screens/bottom_nav.dart';
+import 'package:kmunity_se/component/databaseuser.dart';
 
 
 void main() {
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.blue,
       ),
-      home:  const Bottomnavigationbar(),
+      home:   const Bottomnavigationbar(),
     );
   }
 }
