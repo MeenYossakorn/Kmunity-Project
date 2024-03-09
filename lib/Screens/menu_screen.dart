@@ -43,12 +43,12 @@ class menuscreen extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: height * 0.18, // เลื่อน Container สีเทาอยู่สูงขึ้น
+              height: height * 0.13, // เลื่อน Container สีเทาอยู่สูงขึ้น
               child: Align(
                 alignment: Alignment
                     .bottomCenter, // จัด Text ไว้ที่ด้านล่างของ Container
                 child: Transform.translate(
-                  offset: Offset(0, -20), // ลองปรับค่า offset เพื่อเลื่อนขึ้น
+                  offset: Offset(0, -30), // ลองปรับค่า offset เพื่อเลื่อนขึ้น
                   child: Text(
                     "MENU",
                     style: GoogleFonts.inter(
@@ -75,10 +75,10 @@ class menuscreen extends StatelessWidget {
                     )
                   ],
                 ),
-                height: height * 0.68, // ปรับความสูงของ Container สีเทา
+                height: height * 0.73, // ปรับความสูงของ Container สีเทา
                 width: width - 40,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0,
+                  padding: const EdgeInsets.fromLTRB(20.0, 50.0, 20.0,
                       20.0), // เพิ่มพื้นที่ด้านล่างของ GridView.builder
                   child: GridView.builder(
                     gridDelegate:
@@ -88,14 +88,14 @@ class menuscreen extends StatelessWidget {
                       mainAxisSpacing: 25,
                     ),
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
                     itemCount: imgIcon.length,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) =>totap[index]),
+                            MaterialPageRoute(
+                                builder: (context) => totap[index]),
                           );
                         },
                         child: Padding(
