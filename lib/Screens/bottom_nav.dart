@@ -71,9 +71,7 @@ class NavigationController extends GetxController {
 
   final screens = [
     homescreen(),
-    Container(
-      color: Colors.black,
-    ),
+    mailscreen(),
     userscreen(),
     
      menuscreen(),
