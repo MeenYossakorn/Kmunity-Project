@@ -4,6 +4,7 @@ import 'package:kmunity_se/Screens/Menu_screen.dart';
 import 'package:kmunity_se/Screens/User_screen.dart';
 import 'package:get/get.dart';
 import 'package:kmunity_se/Screens/home_screen.dart';
+import 'package:kmunity_se/Screens/mailbox_screen.dart';
 import 'package:kmunity_se/constant/constant.dart';
 
 class Bottomnavigationbar extends StatefulWidget {
@@ -71,9 +72,7 @@ class NavigationController extends GetxController {
 
   final screens = [
     homescreen(),
-    Container(
-      color: Colors.black,
-    ),
+    mailscreen(),
     userscreen(),
     
      menuscreen(),

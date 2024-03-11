@@ -56,7 +56,7 @@ class mailscreen extends StatelessWidget {
                     )
                   ],
                 ),
-                height: height * 0.73, // ความสูงของ Container เท่าเดิม
+                height: height * 0.7, // ความสูงของ Container เท่าเดิม
                 width: width - 40,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 6),

@@ -1,16 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:kmunity_se/Screens/bottom_nav.dart';
+import 'package:kmunity_se/Screens/home_screen.dart';
 import 'package:kmunity_se/component/my_button.dart';
 import 'package:kmunity_se/component/my_textfield.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  LoginWithEmail() {
-    print("เบียว+3");
+  LoginWithEmail() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+          
+      print("Login successfully");
+      _showMyDialog('Login successfully.');
+    } on FirebaseException catch (e) {
+      print("Failed with error code : ${e.code}");
+      print(e.message);
+      if (e.code == 'invalid-email') {
+        _showMyDialog('No user found for that email.');
+      } else if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
+        _showMyDialog('Wrong password provided for that user.');
+      }
+    }
+  }
+
+  void _showMyDialog(String txtMsg) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Expanded(
+          child: AlertDialog(
+            backgroundColor: Colors.amberAccent,
+            title: const Text('AlertDialog Title'),
+            content: Text(txtMsg),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'Cancel'),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Bottomnavigationbar())),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override

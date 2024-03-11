@@ -78,7 +78,7 @@ class menuscreen extends StatelessWidget {
                 height: height * 0.73, // ปรับความสูงของ Container สีเทา
                 width: width - 40,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 50.0, 20.0,
+                  padding: const EdgeInsets.fromLTRB(20.0, 30.0, 20.0,
                       20.0), // เพิ่มพื้นที่ด้านล่างของ GridView.builder
                   child: GridView.builder(
                     gridDelegate:

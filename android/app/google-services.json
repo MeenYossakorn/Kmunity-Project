@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "344163599580",
+    "project_id": "project-189f8",
+    "storage_bucket": "project-189f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344163599580:android:6ad3dfbec43dd1a0d8a019",
+        "android_client_info": {
+          "package_name": "com.example.kmunity_se"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5rTA2Xz2CF8CspzHv-xRdJYq6X4f4VMw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
