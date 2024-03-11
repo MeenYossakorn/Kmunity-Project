@@ -1,12 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:kmunity_se/component/infomodel.dart';
 
-class homescreen extends StatelessWidget {
+class homescreen extends StatefulWidget {
   const homescreen({super.key});
 
+  @override
+  State<homescreen> createState() => _homescreenState();
+}
+
+class _homescreenState extends State<homescreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,49 +109,64 @@ class homescreen extends StatelessWidget {
               left: 0,
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                child: CarouselSlider(
-                  items: infoData.infoNewsData.map((info) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Stack(
-                          children: [
-                            Image.network(
-                              info.urlImage!,
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              height: double.infinity,
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('information')
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<DocumentSnapshot> documents = snapshot.data!.docs;
+
+                      return CarouselSlider(
+                        items: documents.map((document) {
+                          Map<String, dynamic> data =
+                              document.data() as Map<String, dynamic>;
+                          return Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                            Positioned(
-                              bottom: 10,
-                              left: 10,
-                              child: Container(
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Text(
-                                  info.text!,
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Stack(
+                                children: [
+                                  Image.network(
+                                    data['image'],
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                    height: double.infinity,
                                   ),
-                                ),
+                                  Positioned(
+                                    bottom: 10,
+                                    left: 10,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Text(
+                                        data['text'],
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                  options: CarouselOptions(height: 200),
+                          );
+                        }).toList(),
+                        options: CarouselOptions(height: 200),
+                      );
+                    } else {
+                      return CircularProgressIndicator(); // หรือ Widget ที่แสดงให้รู้ว่ากำลังโหลดข้อมูล
+                    }
+                  },
                 ),
               ),
             ),
