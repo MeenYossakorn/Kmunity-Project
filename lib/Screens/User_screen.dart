@@ -3,7 +3,14 @@ import 'package:get/get.dart';
 import 'package:kmunity_se/component/My_IconButton.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kmunity_se/component/databaseuser.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:kmunity_se/Screens/bottom_nav.dart';
+import 'package:kmunity_se/Screens/home_screen.dart';
+import 'package:kmunity_se/component/my_button.dart';
+import 'package:kmunity_se/component/my_textfield.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class userscreen extends StatefulWidget {
   const userscreen({super.key});
@@ -11,6 +18,10 @@ class userscreen extends StatefulWidget {
   @override
   State<userscreen> createState() => _userscreenState();
 }
+
+// String uid = userCredential.user!.uid;
+// DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection('user').doc(uid).get();
+// String? userRole = userSnapshot.get('role');
 
 class _userscreenState extends State<userscreen> {
   @override
@@ -76,16 +87,33 @@ class _userscreenState extends State<userscreen> {
                               height: 134,
                             ),
                           ),
-                          
-                          Text(
-                            'chinpasit ounsiri',
-                            style: GoogleFonts.inter(
-                              // textStyle: Theme.of(context).textTheme.titleLarge,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w800,
-                              color: const Color(0xFFFF7500),
-                            ),
-                          ), //เเก้ไขครั้งหน้า
+
+                          StreamBuilder(
+                              stream: FirebaseFirestore.instance
+                                  .collection('user')
+                                  .doc('4HU7yiQfdzOvvtos4s1rYJZJBjt1')
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  var email = snapshot.data?.data()?['name'];
+                                  return Center(
+                                    child: Text(
+                                      email ??'No data',
+                                      style: GoogleFonts.inter(
+                                        // textStyle: Theme.of(context).textTheme.titleLarge,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w800,
+                                        color: const Color(0xFFFF7500),
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+                              }), //เเก้ไขครั้งหน้า
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -108,12 +136,11 @@ class _userscreenState extends State<userscreen> {
                             ],
                           )
                         ],
-                      )
-                      )
-                      ),
+                      ))),
               Positioned(
                   top: 408,
-                  left: 15,
+                  left: 50,
+                  right: 50,
                   child: Container(
                     width: 359,
                     height: 425,
@@ -166,6 +193,7 @@ class _userscreenState extends State<userscreen> {
                             ),
                           ),
                         ),
+
                         // SingleChildScrollView(
                         //   child: Column(
                         //     children: List.generate(

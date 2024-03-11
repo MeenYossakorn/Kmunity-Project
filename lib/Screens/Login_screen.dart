@@ -1,10 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:kmunity_se/Auth/authentication.dart';
 import 'package:kmunity_se/Screens/bottom_nav.dart';
 import 'package:kmunity_se/Screens/home_screen.dart';
 import 'package:kmunity_se/component/my_button.dart';
 import 'package:kmunity_se/component/my_textfield.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
@@ -14,51 +17,20 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  final FirebaseAuthService _auth = FirebaseAuthService();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool _isPressed = false;
 
-  LoginWithEmail() async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text, password: passwordController.text);
-          
-      print("Login successfully");
-      _showMyDialog('Login successfully.');
-    } on FirebaseException catch (e) {
-      print("Failed with error code : ${e.code}");
-      print(e.message);
-      if (e.code == 'invalid-email') {
-        _showMyDialog('No user found for that email.');
-      } else if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
-        _showMyDialog('Wrong password provided for that user.');
-      }
-    }
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
-  void _showMyDialog(String txtMsg) async {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Expanded(
-          child: AlertDialog(
-            backgroundColor: Colors.amberAccent,
-            title: const Text('AlertDialog Title'),
-            content: Text(txtMsg),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'Cancel'),
-                child: const Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Bottomnavigationbar())),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+  
+  
 
   @override
   Widget build(BuildContext context) {
@@ -276,5 +248,48 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  LoginWithEmail() async {
+    String email = emailController.text;
+    String password = passwordController.text;
+
+    User? user = await _auth.signInWithEmailAndPassword(email, password);
+
+    if (user != null) {
+      
+
+      final snapshot = await FirebaseFirestore.instance
+          .collection('user')
+          .where('id', isEqualTo: user.uid)
+          .get();
+      final userData = snapshot.docs[0].data();
+      if (userData.containsKey('role')) {
+        String role = userData['role'];
+print("Login is successfully signed");
+        saveUserRole(role);
+        route(role);
+      } else {
+        print('Error: User document does not contain "role" field');
+      }
+    } else {
+      print('Some error happen');
+    }
+  }
+
+  void saveUserRole(String role) async {
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.setString('role', role);
+    });
+  }
+
+  void route(String role) {
+    switch (role) {
+      case "user":
+        Navigator.pushReplacementNamed(context, "/user");
+        break;
+      default:
+        Navigator.pushReplacementNamed(context, "/");
+    }
   }
 }

@@ -6,6 +6,7 @@ import 'package:kmunity_se/Screens/bottom_nav.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kmunity_se/component/databaseuser.dart';
 import 'package:kmunity_se/firebase_options.dart';
+import 'package:kmunity_se/splash/splash_screen.dart';
 
 
 void main() async {
@@ -24,10 +25,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title : 'Onboarding screen',
-      theme: ThemeData(
-        primaryColor: Colors.blue,
-      ),
-      home:    LoginScreen(),
+        routes: {
+        '/': (context) => SplashScreen(
+          // Here, you can decide whether to show the LoginPage or HomePage based on user authentication
+          child: LoginScreen(),
+        ),
+        '/login': (context) => LoginScreen(),
+        '/user': (context) =>  Bottomnavigationbar(),
+      },
+    
     );
-  }
-}
+}}
