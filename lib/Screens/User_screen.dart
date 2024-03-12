@@ -13,7 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class userscreen extends StatefulWidget {
-  const userscreen({super.key});
+  userscreen({super.key});
 
   @override
   State<userscreen> createState() => _userscreenState();
@@ -24,6 +24,7 @@ class userscreen extends StatefulWidget {
 // String? userRole = userSnapshot.get('role');
 
 class _userscreenState extends State<userscreen> {
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,14 +40,17 @@ class _userscreenState extends State<userscreen> {
             children: [
               Positioned(
                   top: 58,
-                  left: 116,
-                  child: Text(
-                    "PROFILE",
-                    style: GoogleFonts.inter(
-                      // textStyle: Theme.of(context).textTheme.titleLarge,
-                      fontSize: 35,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white,
+                  left: 50,
+                  right: 50,
+                  child: Center(
+                    child: Text(
+                      "PROFILE",
+                      style: GoogleFonts.inter(
+                        // textStyle: Theme.of(context).textTheme.titleLarge,
+                        fontSize: 35,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                      ),
                     ),
                   )),
               Positioned(
@@ -67,76 +71,79 @@ class _userscreenState extends State<userscreen> {
                       ),
                       width: 310,
                       height: 280,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Positioned(
-                            top: 124,
-                            left: 50,
-                            right: 50,
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                gradient: LinearGradient(
-                                  begin: Alignment.topRight,
-                                  end: Alignment.bottomLeft,
-                                  colors: [Colors.white, Colors.orange],
-                                ),
-                              ),
-                              width: 134,
-                              height: 134,
-                            ),
-                          ),
-
-                          StreamBuilder(
-                              stream: FirebaseFirestore.instance
-                                  .collection('user')
-                                  .doc('4HU7yiQfdzOvvtos4s1rYJZJBjt1')
-                                  .snapshots(),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  var email = snapshot.data?.data()?['name'];
-                                  return Center(
-                                    child: Text(
-                                      email ??'No data',
+                      child: StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('user')
+                              .doc(user!.uid)
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              var img = snapshot.data?.data()?['image'];
+                              var name = snapshot.data?.data()?['name'];
+                              var email = snapshot.data?.data()?['email'];
+                              return Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Positioned(
+                                      top: 124,
+                                      left: 50,
+                                      right: 50,
+                                      child: Container(
+                                          decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            gradient: LinearGradient(
+                                              begin: Alignment.topRight,
+                                              end: Alignment.bottomLeft,
+                                              colors: [
+                                                Colors.white,
+                                                Colors.orange
+                                              ],
+                                            ),
+                                          ),
+                                          width: 134,
+                                          height: 134,
+                                          child: Center(
+                                            child: CircleAvatar(
+                                              radius: 61,
+                                              backgroundImage: NetworkImage(
+                                                  img ?? "No data"),
+                                            ),
+                                          )),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      name ?? 'No data',
                                       style: GoogleFonts.inter(
                                         // textStyle: Theme.of(context).textTheme.titleLarge,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w800,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
                                         color: const Color(0xFFFF7500),
                                       ),
                                     ),
-                                  );
-                                } else {
-                                  return Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                }
-                              }), //เเก้ไขครั้งหน้า
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(
-                                Icons.verified_user,
-                                size: 13,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                "s6403051633122@kmutnb.ac.th",
-                                style: GoogleFonts.inter(
-                                  // textStyle: Theme.of(context).textTheme.titleLarge,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w800,
-                                  color: const Color(0xFFFF7500),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      email ?? 'No data',
+                                      style: GoogleFonts.inter(
+                                        // textStyle: Theme.of(context).textTheme.titleLarge,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700,
+                                        color: const Color(0xFFFF7500),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ), //เเก้ไขครั้งหน้า
-                            ],
-                          )
-                        ],
-                      ))),
+                              );
+                            } else {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          }))),
               Positioned(
                   top: 408,
                   left: 50,
@@ -171,13 +178,13 @@ class _userscreenState extends State<userscreen> {
                               BoxShadow(
                                 blurRadius: 5,
                                 color: Color(0xFF000000),
-                                offset: Offset(0, 1),
+                                offset: Offset(0, 0),
                               )
                             ],
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(1.0),
-                            child: Row(
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
@@ -193,6 +200,92 @@ class _userscreenState extends State<userscreen> {
                             ),
                           ),
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: 400,
+                          height: 250,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(24)),
+                          ),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 30.0),
+                            child: StreamBuilder(
+                                stream: FirebaseFirestore.instance
+                                    .collection('user')
+                                    .doc(user!.uid)
+                                    .snapshots(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    List Data = [
+                                      snapshot.data?.data()?['degree'],
+                                      snapshot.data?.data()?['faculty'],
+                                      snapshot.data?.data()?['major'],
+                                      snapshot.data?.data()?['department '],
+                                      snapshot.data?.data()?['id_student']
+                                    ];
+                                    List topicstu = [
+                                      "ระดับ",
+                                      "คณะ",
+                                      "สาขาวิชา",
+                                      "ภาควิชาเรียน",
+                                      "รหัสนักศึกษา",
+                                    ];
+                                    return GridView.builder(
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 1,
+                                        childAspectRatio: 8,
+                                      ),
+                                      itemCount: Data.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  topicstu[index],
+                                                  style: GoogleFonts.inter(
+                                                    // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                    fontSize: 13,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                    color:
+                                                        Color(0xFFFF7200),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  Data[index] ?? "No Data",
+                                                  style: GoogleFonts.inter(
+                                                    // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                    fontSize: 13,
+                                                    fontWeight:
+                                                        FontWeight.w800,
+                                                    color:
+                                                        Color(0xFF818181),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    return CircularProgressIndicator();
+                                  }
+                                }),
+                          ),
+                        )
 
                         // SingleChildScrollView(
                         //   child: Column(

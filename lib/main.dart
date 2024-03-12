@@ -4,6 +4,7 @@ import 'package:kmunity_se/Screens/Login_screen.dart';
 import 'package:kmunity_se/Screens/User_screen.dart';
 import 'package:kmunity_se/Screens/bottom_nav.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:kmunity_se/component/databaseuser.dart';
 import 'package:kmunity_se/firebase_options.dart';
 import 'package:kmunity_se/splash/splash_screen.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // home: Bottomnavigationbar(),
       debugShowCheckedModeBanner: false,
       title : 'Onboarding screen',
         routes: {
