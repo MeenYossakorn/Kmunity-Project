@@ -1,10 +1,33 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:kmunity_se/BookingDetailsScreen/detail_screen.dart';
 import 'package:kmunity_se/Screens/BookingBook_screen.dart';
 import 'package:kmunity_se/Screens/bottom_nav.dart';
 import "package:google_fonts/google_fonts.dart";
 
-class sciencebook extends StatelessWidget {
+class sciencebook extends StatefulWidget {
   const sciencebook({super.key});
+
+  @override
+  State<sciencebook> createState() => _sciencebookState();
+}
+
+class _sciencebookState extends State<sciencebook> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  List<DocumentSnapshot> _documents = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
+
+  Future<void> _fetchData() async {
+    QuerySnapshot snapshot = await _firestore.collection('Mathbook').get();
+    setState(() {
+      _documents = snapshot.docs;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +130,7 @@ class sciencebook extends StatelessWidget {
                               // color: Colors.blue,
                               width: 290,
                               height: 450,
+
                               child: GridView.builder(
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
@@ -114,7 +138,9 @@ class sciencebook extends StatelessWidget {
                                   childAspectRatio:
                                       2, // สัดส่วนของความสูงต่อความกว้าง
                                 ),
+                                itemCount: _documents.length,
                                 itemBuilder: (BuildContext context, int index) {
+                                  DocumentSnapshot document = _documents[index];
                                   return Center(
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
@@ -122,8 +148,22 @@ class sciencebook extends StatelessWidget {
                                         // color: Colors.blueGrey,
                                         child: Row(
                                           children: [
-                                            Image.asset(
-                                                "assets/images/booktest.png"),
+                                            InkWell(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          detail(document["Name"],document["Detail"],document["image"])),
+                                                );
+                                              },
+                                              child: Container(
+                                                width: 80,
+                                                height: 120,
+                                                child: Image.network(
+                                                    document["image"]),
+                                              ),
+                                            ),
                                             const SizedBox(
                                               width: 20,
                                             ),
@@ -135,10 +175,39 @@ class sciencebook extends StatelessWidget {
                                                 children: [
                                                   Container(
                                                       // color: Colors.cyan,
-                                                      width: 100,
-                                                      height: 75,
+                                                      width: 150,
+                                                      height: 20,
                                                       child: Text(
-                                                          'fill text $index')),
+                                                        document["Name"],
+                                                        style:
+                                                            GoogleFonts.inter(
+                                                          // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Color.fromARGB(255, 0, 0, 0),
+                                                        ),
+                                                        softWrap: true,
+                                                        maxLines: 1,
+                                                      )),
+                                                  Container(
+                                                      // color: Colors.cyan,
+                                                      width: 150,
+                                                      height: 75,
+                                                      
+                                                      child: Text(
+                                                        document["info"],
+                                                        style:
+                                                            GoogleFonts.inter(
+                                                          // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Color.fromARGB(255, 0, 0, 0),
+                                                        ),
+                                                        softWrap: true,
+                                                        maxLines: 4,
+                                                      )),
                                                   InkWell(
                                                     onTap: () {},
                                                     child: Container(
@@ -187,7 +256,6 @@ class sciencebook extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                itemCount: 10,
                               ),
                             ),
                           ),

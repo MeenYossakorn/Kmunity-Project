@@ -19,9 +19,6 @@ class userscreen extends StatefulWidget {
   State<userscreen> createState() => _userscreenState();
 }
 
-// String uid = userCredential.user!.uid;
-// DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection('user').doc(uid).get();
-// String? userRole = userSnapshot.get('role');
 
 class _userscreenState extends State<userscreen> {
   User? user = FirebaseAuth.instance.currentUser;
@@ -302,28 +299,7 @@ class _userscreenState extends State<userscreen> {
                   ))
             ],
           )),
-      //     bottomNavigationBar: Stack(
-      //   children: [
-      //     Positioned(
-      //       top: 752,
-      //       child: Container(
-      //         width: 390,
-      //         height: 184,
-      //         decoration: const BoxDecoration(
-      //           color: Colors.white,
-      //           borderRadius: BorderRadius.all(Radius.circular(24)),
-      //           boxShadow: [
-      //             BoxShadow(
-      //               blurRadius: 10,
-      //               color: Color(0xA2000000),
-      //               offset: Offset(2, 2),
-      //             )
-      //           ],
-      //         ),
-      //       ),
-      //     )
-      //   ],
-      // ),
+
     );
   }
 }
