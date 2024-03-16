@@ -2,7 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:kmunity_se/BookingScreen/mathbook_screen.dart';
+import 'package:kmunity_se/Screens/BookingBoardgame_screen.dart';
 import 'package:kmunity_se/Screens/Login_screen.dart';
+import 'package:kmunity_se/Screens/Room_screen.dart';
 import 'package:kmunity_se/Screens/User_screen.dart';
 import 'package:kmunity_se/Screens/bottom_nav.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,9 +28,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // home: mathbook(),
       debugShowCheckedModeBanner: false,
-      title : 'Onboarding screen',
+      title : 'Kmunity',
+      //  home: bookingboardgamescreen(),
         routes: {
         '/': (context) => SplashScreen(
           // Here, you can decide whether to show the LoginPage or HomePage based on user authentication

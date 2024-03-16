@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:kmunity_se/BookingDetailsScreen/detail_screen.dart';
+import 'package:kmunity_se/AllDetailsScreen/detailbook_screen.dart';
 import 'package:kmunity_se/Screens/BookingBook_screen.dart';
 import 'package:kmunity_se/Screens/bottom_nav.dart';
 import "package:google_fonts/google_fonts.dart";
@@ -154,7 +154,7 @@ class _sciencebookState extends State<sciencebook> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          detail(document["Name"],document["Detail"],document["image"])),
+                                                          detailbookscreen(document["Name"],document["Detail"],document["image"],document.id)),
                                                 );
                                               },
                                               child: Container(
@@ -195,18 +195,22 @@ class _sciencebookState extends State<sciencebook> {
                                                       width: 150,
                                                       height: 75,
                                                       
-                                                      child: Text(
-                                                        document["info"],
-                                                        style:
-                                                            GoogleFonts.inter(
-                                                          // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: Color.fromARGB(255, 0, 0, 0),
+                                                      child: SingleChildScrollView(
+                                                        child: Center(
+                                                          child: Text(
+                                                            document["info"],
+                                                            style:
+                                                                GoogleFonts.inter(
+                                                              // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight.w500,
+                                                              color: Color.fromARGB(255, 0, 0, 0),
+                                                            ),
+                                                            softWrap: true,
+                                                            
+                                                          ),
                                                         ),
-                                                        softWrap: true,
-                                                        maxLines: 4,
                                                       )),
                                                   InkWell(
                                                     onTap: () {},

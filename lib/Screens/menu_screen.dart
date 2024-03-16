@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kmunity_se/Screens/BookingBoardgame_screen.dart';
 import 'package:kmunity_se/Screens/BookingBook_screen.dart';
+import 'package:kmunity_se/Screens/Room_screen.dart';
 
 class menuscreen extends StatelessWidget {
   menuscreen({super.key});
@@ -21,8 +23,8 @@ class menuscreen extends StatelessWidget {
   ];
   List totap = [
     bookingbookscreen(),
-    bookingbookscreen(),
-    bookingbookscreen(),
+    bookingroomscreen(),
+    bookingboardgamescreen(),
     bookingbookscreen(),
     bookingbookscreen()
   ];
