@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:kmunity_se/AllDetailsScreen/detailboardgame_screen.dart';
+import 'package:kmunity_se/AllDetailsScreen/detailbook_screen.dart';
 
 import 'package:kmunity_se/BookingScreen/mathbook_screen.dart';
 import 'package:kmunity_se/Screens/BookingBoardgame_screen.dart';
@@ -8,6 +10,7 @@ import 'package:kmunity_se/Screens/Room_screen.dart';
 import 'package:kmunity_se/Screens/User_screen.dart';
 import 'package:kmunity_se/Screens/bottom_nav.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 import 'package:kmunity_se/component/databaseuser.dart';
 import 'package:kmunity_se/firebase_options.dart';
@@ -30,7 +33,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title : 'Kmunity',
-      //  home: bookingboardgamescreen(),
+      //  home: MyButton(),
         routes: {
         '/': (context) => SplashScreen(
           // Here, you can decide whether to show the LoginPage or HomePage based on user authentication
@@ -38,7 +41,7 @@ class MyApp extends StatelessWidget {
         ),
         '/login': (context) => LoginScreen(),
         '/user': (context) =>  Bottomnavigationbar(),
-        // '/admin': (context) =>  Bottomnavigationbar(),
+        '/admin': (context) =>  Bottomnavigationbar(),
       },
     
     );

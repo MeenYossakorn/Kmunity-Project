@@ -288,6 +288,9 @@ print("Login is successfully signed");
       case "user":
         Navigator.pushReplacementNamed(context, "/user");
         break;
+      case "admin":
+        Navigator.pushReplacementNamed(context, "/admin");
+        break;
       default:
         Navigator.pushReplacementNamed(context, "/");
     }

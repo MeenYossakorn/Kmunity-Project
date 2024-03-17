@@ -1,5 +1,7 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:kmunity_se/Auth/authentication.dart';
 import 'package:kmunity_se/Screens/BookingBook_screen.dart';
 import 'package:kmunity_se/Screens/bottom_nav.dart';
 import "package:google_fonts/google_fonts.dart";
@@ -9,15 +11,17 @@ class detailbookscreen extends StatefulWidget {
   final String Detailbook;
   final String image;
   final String documentID;
+  final String collec;
+  final DocumentSnapshot d;
 
-  detailbookscreen(this.Namebook, this.Detailbook, this.image, this.documentID);
+  detailbookscreen(this.Namebook, this.Detailbook, this.image, this.documentID,
+      this.collec, this.d);
 
   @override
   State<detailbookscreen> createState() => _detailbookscreenState();
 }
 
 class _detailbookscreenState extends State<detailbookscreen> {
-  
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -70,8 +74,8 @@ class _detailbookscreenState extends State<detailbookscreen> {
                 )),
             Positioned(
                 top: 140,
-              left: 10,
-              right: 10,
+                left: 10,
+                right: 10,
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Colors.white,
@@ -146,36 +150,59 @@ class _detailbookscreenState extends State<detailbookscreen> {
                           ),
                         ),
                       ),
-                      InkWell(
-                        onTap: () {
-                          
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.orange,
-                            boxShadow: const [
-                              BoxShadow(
-                                blurRadius: 10,
-                                color: Color.fromARGB(161, 110, 110, 110),
-                                offset: Offset(0, 0),
+                      ElevatedButton(
+                        onPressed: widget.d["status"]
+                            ? () {
+                                showAwesomeDialog3(context);
+                              }
+                            : () {
+                                showAwesomeDialog(
+                                    context, widget.d, widget.collec);
+                              },
+                        style: widget.d["status"]
+                            ? ElevatedButton.styleFrom(
+                                primary: Colors.red, // สีพื้นหลังของปุ่ม
+                                onPrimary:
+                                    Colors.white, // สีของตัวอักษรภายในปุ่ม
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10,
+                                    horizontal: 25), // การระบุขนาดของปุ่ม
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        20)), // การปรับรูปร่างของปุ่มเป็นรูปร่างวงกลม
+                                elevation: 5, // การกำหนดเงาของปุ่ม
                               )
-                            ],
-                          ),
-                          width: 60,
-                          height: 30,
-                          child: Center(
-                            child: Text(
-                              "จอง",
-                              style: GoogleFonts.inter(
-                                // textStyle: Theme.of(context).textTheme.titleLarge,
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                            : ElevatedButton.styleFrom(
+                                primary: Colors.orange, // สีพื้นหลังของปุ่ม
+                                onPrimary:
+                                    Colors.white, // สีของตัวอักษรภายในปุ่ม
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10,
+                                    horizontal: 25), // การระบุขนาดของปุ่ม
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        20)), // การปรับรูปร่างของปุ่มเป็นรูปร่างวงกลม
+                                elevation: 5, // การกำหนดเงาของปุ่ม
                               ),
-                            ),
-                          ),
-                        ),
+                        child: widget.d["status"]
+                            ? Text(
+                                "ถูกยืมเเล้ว",
+                                style: GoogleFonts.inter(
+                                  // textStyle: Theme.of(context).textTheme.titleLarge,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : Text(
+                                "จอง",
+                                style: GoogleFonts.inter(
+                                  // textStyle: Theme.of(context).textTheme.titleLarge,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
                       )
                     ],
                   ),
@@ -184,5 +211,77 @@ class _detailbookscreenState extends State<detailbookscreen> {
         ),
       ),
     );
+  }
+
+  void showAwesomeDialog(
+      BuildContext context, DocumentSnapshot d, String collection1) {
+    AwesomeDialog(
+      context: context,
+      title: 'ยืนยันการยืมหนังสือ',
+      titleTextStyle: GoogleFonts.inter(
+        // textStyle: Theme.of(context).textTheme.titleLarge,
+        fontSize: 25,
+        fontWeight: FontWeight.bold,
+        color: const Color.fromARGB(255, 246, 121, 112),
+      ),
+      btnOkOnPress: d["status"]
+          ? () {
+              showAwesomeDialog3(context);
+            }
+          : () {
+              showAwesomeDialog2(context);
+              FirebaseAuthService().Update_User(d["ID"]);
+              FirebaseAuthService().Update_Book(collection1, d["ID"], true);
+            },
+      btnOkColor: const Color.fromARGB(255, 112, 157, 114),
+      btnOkText: "ยืนยัน",
+      btnCancelOnPress: () {},
+      btnCancelColor: const Color.fromARGB(255, 246, 121, 112),
+      btnCancelText: "ยกเลิก",
+    ).show();
+  }
+
+  void showAwesomeDialog2(BuildContext context) {
+    AwesomeDialog(
+            context: context,
+            dialogType: DialogType.success,
+            title: 'การยืมสำเร็จ',
+            titleTextStyle: GoogleFonts.inter(
+              // textStyle: Theme.of(context).textTheme.titleLarge,
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              color: Colors.green,
+            ),
+            btnCancelOnPress: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Bottomnavigationbar()),
+              );
+            },
+            btnCancelColor: const Color.fromARGB(255, 112, 157, 114),
+            btnCancelText: "กลับไปยังหน้าหลัก")
+        .show();
+  }
+
+  void showAwesomeDialog3(BuildContext context) {
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.error,
+      title: 'การยืมล้มเหลวโปรดลองใหม่อีกครั้ง',
+      titleTextStyle: GoogleFonts.inter(
+        // textStyle: Theme.of(context).textTheme.titleLarge,
+        fontSize: 25,
+        fontWeight: FontWeight.bold,
+        color: const Color.fromARGB(255, 246, 121, 112),
+      ),
+      btnCancelOnPress: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => bookingbookscreen()),
+        );
+      },
+      btnCancelColor: const Color.fromARGB(255, 246, 121, 112),
+      btnCancelText: "กลับไปยังหน้าหลัก",
+    ).show();
   }
 }

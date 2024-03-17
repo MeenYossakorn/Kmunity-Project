@@ -1,9 +1,13 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kmunity_se/AllDetailsScreen/detailbook_screen.dart';
+import 'package:kmunity_se/Auth/authentication.dart';
 import 'package:kmunity_se/Screens/BookingBook_screen.dart';
 import 'package:kmunity_se/Screens/bottom_nav.dart';
 import "package:google_fonts/google_fonts.dart";
+import 'package:kmunity_se/Screens/home_screen.dart';
 
 class mathbook extends StatefulWidget {
   const mathbook({super.key});
@@ -28,12 +32,12 @@ class _mathbookState extends State<mathbook> {
       _documents = snapshot.docs;
     });
   }
-  
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    String collection1 = "Mathbook";
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -82,8 +86,8 @@ class _mathbookState extends State<mathbook> {
                 )),
             Positioned(
                 top: 140,
-              left: 10,
-              right: 10,
+                left: 10,
+                right: 10,
                 child: Container(
                     decoration: const BoxDecoration(
                       color: Colors.white,
@@ -97,7 +101,7 @@ class _mathbookState extends State<mathbook> {
                       ],
                     ),
                     width: width - 40,
-                  height: height * 0.75,
+                    height: height * 0.75,
                     child: Column(
                       children: [
                         Padding(padding: EdgeInsets.only(top: 20.0)),
@@ -159,7 +163,13 @@ class _mathbookState extends State<mathbook> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          detailbookscreen(document["Name"],document["Detail"],document["image"],document.id)),
+                                                          detailbookscreen(
+                                                              document["Name"],
+                                                              document[
+                                                                  "Detail"],
+                                                              document["image"],
+                                                              document.id,
+                                                              collection1,document)),
                                                 );
                                               },
                                               child: Container(
@@ -187,7 +197,7 @@ class _mathbookState extends State<mathbook> {
                                                         style:
                                                             GoogleFonts.inter(
                                                           // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                          fontSize: 12,
+                                                          fontSize: 15,
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           color: Color.fromARGB(
@@ -208,7 +218,7 @@ class _mathbookState extends State<mathbook> {
                                                             style: GoogleFonts
                                                                 .inter(
                                                               // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                              fontSize: 12,
+                                                              fontSize: 15,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w500,
@@ -223,44 +233,83 @@ class _mathbookState extends State<mathbook> {
                                                   const SizedBox(
                                                     height: 5,
                                                   ),
-                                                  InkWell(
-                                                    onTap: () {},
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20),
-                                                        color: Colors.orange,
-                                                        boxShadow: const [
-                                                          BoxShadow(
-                                                            blurRadius: 10,
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    161,
-                                                                    110,
-                                                                    110,
-                                                                    110),
-                                                            offset:
-                                                                Offset(0, 0),
+                                                  ElevatedButton(
+                                                    onPressed:
+                                                        document["status"]
+                                                            ? () {
+                                                                showAwesomeDialog3(
+                                                                    context);
+                                                                // print("พอเเล้วพอเสียที");
+                                                              }
+                                                            : () {
+                                                                showAwesomeDialog(
+                                                                    context,
+                                                                    document,
+                                                                    collection1);
+                                                              },
+                                                    style: document["status"]
+                                                        ? ElevatedButton
+                                                            .styleFrom(
+                                                            primary: Colors.red,
+                                                            onPrimary:
+                                                                Colors.white,
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    vertical: 5,
+                                                                    horizontal:
+                                                                        5), // การระบุขนาดของปุ่ม
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20)),
+                                                            elevation: 5,
                                                           )
-                                                        ],
-                                                      ),
-                                                      width: 50,
-                                                      height: 25,
-                                                      child: Center(
-                                                        child: Text(
-                                                          "จอง",
-                                                          style:
-                                                              GoogleFonts.inter(
-                                                            // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.white,
+                                                        : ElevatedButton
+                                                            .styleFrom(
+                                                            primary:
+                                                                Colors.orange,
+                                                            onPrimary:
+                                                                Colors.white,
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    vertical: 5,
+                                                                    horizontal:
+                                                                        5), // การระบุขนาดของปุ่ม
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20)),
+                                                            elevation: 5,
                                                           ),
-                                                        ),
-                                                      ),
-                                                    ),
+                                                    child: document["status"]
+                                                        ? Text(
+                                                            "ถูกยืมเเล้ว",
+                                                            style: GoogleFonts
+                                                                .inter(
+                                                              // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                              fontSize: 17,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          )
+                                                        : Text(
+                                                            "จอง",
+                                                            style: GoogleFonts
+                                                                .inter(
+                                                              // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                              fontSize: 17,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          ),
                                                   )
                                                 ],
                                               ),
@@ -281,5 +330,78 @@ class _mathbookState extends State<mathbook> {
         ),
       ),
     );
+  }
+
+  void showAwesomeDialog(
+      BuildContext context, DocumentSnapshot d, String collection1) {
+    AwesomeDialog(
+      context: context,
+      title: 'ยืนยันการยืมหนังสือ',
+      titleTextStyle: GoogleFonts.inter(
+        // textStyle: Theme.of(context).textTheme.titleLarge,
+        fontSize: 25,
+        fontWeight: FontWeight.bold,
+        color: const Color.fromARGB(255, 246, 121, 112),
+      ),
+      btnOkOnPress: d["status"]
+          ? () {
+              showAwesomeDialog3(context);
+              
+            }
+          : () {
+              showAwesomeDialog2(context);
+              FirebaseAuthService().Update_User(d["ID"]);
+              FirebaseAuthService().Update_Book(collection1, d["ID"], true);
+            },
+      btnOkColor: const Color.fromARGB(255, 112, 157, 114),
+      btnOkText: "ยืนยัน",
+      btnCancelOnPress: () {},
+      btnCancelColor: const Color.fromARGB(255, 246, 121, 112),
+      btnCancelText: "ยกเลิก",
+    ).show();
+  }
+
+  void showAwesomeDialog2(BuildContext context) {
+    AwesomeDialog(
+            context: context,
+            dialogType: DialogType.success,
+            title: 'การยืมสำเร็จ',
+            titleTextStyle: GoogleFonts.inter(
+              // textStyle: Theme.of(context).textTheme.titleLarge,
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              color: Colors.green,
+            ),
+            btnCancelOnPress: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Bottomnavigationbar()),
+              );
+            },
+            btnCancelColor: const Color.fromARGB(255, 112, 157, 114),
+            btnCancelText: "กลับไปยังหน้าหลัก")
+        .show();
+  }
+
+  void showAwesomeDialog3(BuildContext context) {
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.error,
+      title: 'การยืมล้มเหลวโปรดลองใหม่อีกครั้ง',
+      titleTextStyle: GoogleFonts.inter(
+        // textStyle: Theme.of(context).textTheme.titleLarge,
+        fontSize: 25,
+        fontWeight: FontWeight.bold,
+        color: const Color.fromARGB(255, 246, 121, 112),
+      ),
+      btnCancelOnPress: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => bookingbookscreen()),
+        );
+      },
+      btnCancelColor: const Color.fromARGB(255, 246, 121, 112),
+      btnCancelText: "กลับไปยังหน้าหลัก",
+    ).show();
   }
 }

@@ -98,7 +98,7 @@ class _bookingroomscreenState extends State<bookingroomscreen> {
                   ],
                 ),
                 width: width - 40,
-                  height: height * 0.75,
+                height: height * 0.75,
                 child: Column(
                   children: [
                     SizedBox(
@@ -168,9 +168,10 @@ class _bookingroomscreenState extends State<bookingroomscreen> {
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Row(
-                                      
                                       children: [
-                                        Padding(padding: EdgeInsets.fromLTRB(10.0, 0, 0, 0)),
+                                        Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                10.0, 0, 0, 0)),
                                         Container(
                                           width: 125,
                                           height: 120,
@@ -200,7 +201,8 @@ class _bookingroomscreenState extends State<bookingroomscreen> {
                                                     boxShadow: const [
                                                       BoxShadow(
                                                         blurRadius: 5,
-                                                        color: Color.fromARGB(160, 72, 72, 72),
+                                                        color: Color.fromARGB(
+                                                            160, 72, 72, 72),
                                                         offset: Offset(0, 0),
                                                       )
                                                     ],
@@ -250,48 +252,31 @@ class _bookingroomscreenState extends State<bookingroomscreen> {
                                               SizedBox(
                                                 height: 10,
                                               ),
-                                              InkWell(
-                                                onTap: () {Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          detailboardgamescreen(
-                                                              document["Name"],
-                                                              document[
-                                                                  "Detail"],
-                                                              document["image"],
-                                                              document.id)),
-                                                );
-
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  // showAwesomeDialog(context);
                                                 },
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                    color: Colors.orange,
-                                                    boxShadow: const [
-                                                      BoxShadow(
-                                                        blurRadius: 10,
-                                                        color: Color.fromARGB(
-                                                            161, 110, 110, 110),
-                                                        offset: Offset(0, 0),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  width: 50,
-                                                  height: 25,
-                                                  child: Center(
-                                                    child: Text(
-                                                      "จอง",
-                                                      style: GoogleFonts.inter(
-                                                        // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
+                                                style: ElevatedButton.styleFrom(
+                                                  primary: Colors.orange,
+                                                  onPrimary: Colors.white,
+                                                  
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 5,
+                                                      horizontal:
+                                                          5), // การระบุขนาดของปุ่ม
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20)),
+                                                  elevation: 5,
+                                                ),
+                                                child: Text(
+                                                  "จอง",
+                                                  style: GoogleFonts.inter(
+                                                    // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white,
                                                   ),
                                                 ),
                                               )

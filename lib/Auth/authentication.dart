@@ -1,22 +1,19 @@
-
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-
-
+import 'package:uuid/uuid.dart';
 
 class FirebaseAuthService {
-
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Getter for current user
+
   User? get currentUser => _auth.currentUser;
 
   // Stream for auth state changes
   Stream<User?> get authStateChanges => _auth.authStateChanges();
 
-
-   Future<User?> signInWithEmailAndPassword(
+  Future<User?> signInWithEmailAndPassword(
     String email,
     String password,
   ) async {
@@ -37,8 +34,7 @@ class FirebaseAuthService {
     }
   }
 
-
-void handleFirebaseAuthError(FirebaseAuthException e) {
+  void handleFirebaseAuthError(FirebaseAuthException e) {
     switch (e.code) {
       case "weak-password":
         print("The password is too weak.");
@@ -60,5 +56,37 @@ void handleFirebaseAuthError(FirebaseAuthException e) {
     }
   }
 
+  Future<bool> Update_User(
+    String ID_book,
+  ) async {
+    try {
+      DateTime data = new DateTime.now();
+      await _firestore
+          .collection('user')
+          .doc(_auth.currentUser!.uid)
+          .collection('status_user')
+          .doc('Status_check')
+          .update({
+        'time': '${data.day}:${data.hour}:${data.minute}',
+        'ID_book': ID_book,
+        'status': true,
+      });
+      return true;
+    } catch (e) {
+      print(e);
+      return true;
+    }
+  }
 
+  Future<bool> Update_Book(String collec, String book_id, bool status) async {
+    try {
+      await _firestore.collection(collec).doc(book_id).update({
+        'status': status,
+      });
+      return true;
+    } catch (e) {
+      print(e);
+      return true;
+    }
+  }
 }
