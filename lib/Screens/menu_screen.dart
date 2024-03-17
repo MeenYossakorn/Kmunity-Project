@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kmunity_se/Screens/BookingBoardgame_screen.dart';
 import 'package:kmunity_se/Screens/BookingBook_screen.dart';
 import 'package:kmunity_se/Screens/Room_screen.dart';
+import 'package:kmunity_se/Screens/admin_infor.dart';
 
 class menuscreen extends StatelessWidget {
   menuscreen({super.key});
@@ -25,7 +26,7 @@ class menuscreen extends StatelessWidget {
     bookingbookscreen(),
     bookingroomscreen(),
     bookingboardgamescreen(),
-    bookingbookscreen(),
+    AdminInfoPage(),
     bookingbookscreen()
   ];
   @override

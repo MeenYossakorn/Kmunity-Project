@@ -24,6 +24,8 @@ class _userscreenState extends State<userscreen> {
   User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.orange,
       body: Container(
@@ -52,8 +54,8 @@ class _userscreenState extends State<userscreen> {
                   )),
               Positioned(
                   top: 112,
-                  left: 50,
-                  right: 50,
+                  left: 10,
+                  right: 10,
                   child: Container(
                       decoration: const BoxDecoration(
                         color: Colors.white,
@@ -66,7 +68,7 @@ class _userscreenState extends State<userscreen> {
                           )
                         ],
                       ),
-                      width: 310,
+                      width: width - 40,
                       height: 280,
                       child: StreamBuilder(
                           stream: FirebaseFirestore.instance
@@ -127,7 +129,7 @@ class _userscreenState extends State<userscreen> {
                                       email ?? 'No data',
                                       style: GoogleFonts.inter(
                                         // textStyle: Theme.of(context).textTheme.titleLarge,
-                                        fontSize: 10,
+                                        fontSize: 15,
                                         fontWeight: FontWeight.w700,
                                         color: const Color(0xFFFF7500),
                                       ),
@@ -143,11 +145,11 @@ class _userscreenState extends State<userscreen> {
                           }))),
               Positioned(
                   top: 408,
-                  left: 50,
-                  right: 50,
+                  left: 10,
+                  right: 10,
                   child: Container(
-                    width: 359,
-                    height: 425,
+                    width: width - 40,
+                    height: height * 0.6,
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(24)),
@@ -235,7 +237,7 @@ class _userscreenState extends State<userscreen> {
                                       gridDelegate:
                                           SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 1,
-                                        childAspectRatio: 8,
+                                        childAspectRatio: 5,
                                       ),
                                       itemCount: Data.length,
                                       itemBuilder:

@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
         ),
         '/login': (context) => LoginScreen(),
         '/user': (context) =>  Bottomnavigationbar(),
+        // '/admin': (context) =>  Bottomnavigationbar(),
       },
     
     );

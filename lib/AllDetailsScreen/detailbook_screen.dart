@@ -17,8 +17,11 @@ class detailbookscreen extends StatefulWidget {
 }
 
 class _detailbookscreenState extends State<detailbookscreen> {
+  
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -67,8 +70,8 @@ class _detailbookscreenState extends State<detailbookscreen> {
                 )),
             Positioned(
                 top: 140,
-                left: 50,
-                right: 50,
+              left: 10,
+              right: 10,
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Colors.white,
@@ -81,8 +84,8 @@ class _detailbookscreenState extends State<detailbookscreen> {
                       )
                     ],
                   ),
-                  width: 330,
-                  height: 600,
+                  width: width - 40,
+                  height: height * 0.75,
                   child: Column(
                     children: [
                       Padding(padding: EdgeInsets.only(top: 20.0)),
@@ -144,7 +147,9 @@ class _detailbookscreenState extends State<detailbookscreen> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
@@ -157,14 +162,14 @@ class _detailbookscreenState extends State<detailbookscreen> {
                               )
                             ],
                           ),
-                          width: 50,
-                          height: 25,
+                          width: 60,
+                          height: 30,
                           child: Center(
                             child: Text(
                               "จอง",
                               style: GoogleFonts.inter(
                                 // textStyle: Theme.of(context).textTheme.titleLarge,
-                                fontSize: 15,
+                                fontSize: 17,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),

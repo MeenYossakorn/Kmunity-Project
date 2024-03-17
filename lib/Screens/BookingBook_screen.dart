@@ -50,6 +50,8 @@ class _bookingbookscreenState extends State<bookingbookscreen> {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -99,91 +101,93 @@ class _bookingbookscreenState extends State<bookingbookscreen> {
             ),
             Positioned(
               top: 140,
-              left: 50,
-              right: 50,
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(24)),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 10,
-                      color: Color.fromARGB(161, 110, 110, 110),
-                      offset: Offset(0, 0),
-                    )
-                  ],
-                ),
-                width: 330,
-                height: 600,
-                child: 
-                    GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 1, // จำนวนคอลัมน์ในแต่ละแถว
-                        childAspectRatio: 3, // สัดส่วนของความสูงต่อความกว้าง
-                      ),
-                      itemCount: imgIcon.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => totap[index]),
-                        );
-                            },
-                            child: Container(
-                                decoration: BoxDecoration(
-                                  color: Color.fromARGB(15, 255, 174, 0),
-                                  // color: Colors.black,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                height: 100,
-                                width: 100,
-                                child: Row(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 5.0, top: 5.0, bottom: 5.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
-                                          color: Colors.white,
-                                          border: Border.all(
-                                            color: Colors.orange, // สีของเส้นขอบ
-                                            width: 5, // ความกว้างของเส้นขอบ
+              left: 10,
+              right: 10,
+              child: Center(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(24)),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 10,
+                        color: Color.fromARGB(161, 110, 110, 110),
+                        offset: Offset(0, 0),
+                      )
+                    ],
+                  ),
+                  width: width - 40,
+                  height: height * 0.75,
+                  child: 
+                      GridView.builder(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1, // จำนวนคอลัมน์ในแต่ละแถว
+                          childAspectRatio: 3, // สัดส่วนของความสูงต่อความกว้าง
+                        ),
+                        itemCount: imgIcon.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => totap[index]),
+                          );
+                              },
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Color.fromARGB(15, 255, 174, 0),
+                                    // color: Colors.black,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  height: 100,
+                                  width: 100,
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 5.0, top: 5.0, bottom: 5.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(20),
+                                            color: Colors.white,
+                                            border: Border.all(
+                                              color: Colors.orange, // สีของเส้นขอบ
+                                              width: 5, // ความกว้างของเส้นขอบ
+                                            ),
                                           ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Image.asset(
-                                            imgIcon[index],
-                                            width: 45,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Image.asset(
+                                              imgIcon[index],
+                                              width: 45,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left:40),
-                                      child: Text(
-                                        imgName[index],
-                                        style: GoogleFonts.inter(
-                                          // textStyle: Theme.of(context).textTheme.titleLarge,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color.fromARGB(255, 0, 0, 0),
-                                        ),
-                                        ),
-                                    ),
-                                  ],
-                                )),
-                          ),
-                        );
-                      },
-                    ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left:40),
+                                        child: Text(
+                                          imgName[index],
+                                          style: GoogleFonts.inter(
+                                            // textStyle: Theme.of(context).textTheme.titleLarge,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color.fromARGB(255, 0, 0, 0),
+                                          ),
+                                          ),
+                                      ),
+                                    ],
+                                  )),
+                            ),
+                          );
+                        },
+                      ),
+                    
                   
-                
+                ),
               ),
             ),
           ],

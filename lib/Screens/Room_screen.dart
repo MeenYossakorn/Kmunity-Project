@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import "package:google_fonts/google_fonts.dart";
+import 'package:kmunity_se/AllDetailsScreen/detailboardgame_screen.dart';
 import 'package:kmunity_se/Screens/bottom_nav.dart';
 
 class bookingroomscreen extends StatefulWidget {
@@ -31,6 +32,8 @@ class _bookingroomscreenState extends State<bookingroomscreen> {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -80,8 +83,8 @@ class _bookingroomscreenState extends State<bookingroomscreen> {
             ),
             Positioned(
               top: 140,
-              left: 50,
-              right: 50,
+              left: 10,
+              right: 10,
               child: Container(
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -94,8 +97,8 @@ class _bookingroomscreenState extends State<bookingroomscreen> {
                     )
                   ],
                 ),
-                width: 330,
-                height: 600,
+                width: width - 40,
+                  height: height * 0.75,
                 child: Column(
                   children: [
                     SizedBox(
@@ -132,9 +135,9 @@ class _bookingroomscreenState extends State<bookingroomscreen> {
                         ),
                       ),
                     ),
-                    Padding(padding: EdgeInsets.only(top: 15.0)),
+                    Padding(padding: EdgeInsets.only(top: 2.5)),
                     Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Positioned(
                         top: 243,
                         left: 50,
@@ -149,7 +152,7 @@ class _bookingroomscreenState extends State<bookingroomscreen> {
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 1, // จำนวนคอลัมน์ในแต่ละแถว
                               childAspectRatio:
-                                  2, // สัดส่วนของความสูงต่อความกว้าง
+                                  1.5, // สัดส่วนของความสูงต่อความกว้าง
                             ),
                             itemCount: _documents.length,
                             itemBuilder: (BuildContext context, int index) {
@@ -165,7 +168,9 @@ class _bookingroomscreenState extends State<bookingroomscreen> {
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Row(
+                                      
                                       children: [
+                                        Padding(padding: EdgeInsets.fromLTRB(10.0, 0, 0, 0)),
                                         Container(
                                           width: 125,
                                           height: 120,
@@ -177,7 +182,7 @@ class _bookingroomscreenState extends State<bookingroomscreen> {
                                           ),
                                         ),
                                         const SizedBox(
-                                          width: 20,
+                                          width: 10,
                                         ),
                                         Container(
                                           // color: Colors.amber,
@@ -223,8 +228,8 @@ class _bookingroomscreenState extends State<bookingroomscreen> {
                                               ),
                                               Container(
                                                   // color: Colors.cyan,
-                                                  width: 150,
-                                                  height: 75,
+                                                  width: 200,
+                                                  height: 80,
                                                   child: SingleChildScrollView(
                                                     child: Center(
                                                       child: Text(
@@ -246,7 +251,19 @@ class _bookingroomscreenState extends State<bookingroomscreen> {
                                                 height: 10,
                                               ),
                                               InkWell(
-                                                onTap: () {},
+                                                onTap: () {Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          detailboardgamescreen(
+                                                              document["Name"],
+                                                              document[
+                                                                  "Detail"],
+                                                              document["image"],
+                                                              document.id)),
+                                                );
+
+                                                },
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:

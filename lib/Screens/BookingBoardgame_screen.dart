@@ -31,6 +31,8 @@ class _bookingboardgamescreenState extends State<bookingboardgamescreen> {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -80,8 +82,8 @@ class _bookingboardgamescreenState extends State<bookingboardgamescreen> {
             ),
             Positioned(
               top: 140,
-              left: 50,
-              right: 50,
+              left: 10,
+              right: 10,
               child: Container(
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -94,8 +96,8 @@ class _bookingboardgamescreenState extends State<bookingboardgamescreen> {
                     )
                   ],
                 ),
-                width: 330,
-                height: 600,
+                width: width - 40,
+                  height: height * 0.75,
                 child: Column(
                   children: [
                     SizedBox(

@@ -23,7 +23,7 @@ class _cartoonbookState extends State<cartoonbook> {
   }
 
   Future<void> _fetchData() async {
-    QuerySnapshot snapshot = await _firestore.collection('Mathbook').get();
+    QuerySnapshot snapshot = await _firestore.collection('cartoonbook').get();
     setState(() {
       _documents = snapshot.docs;
     });
@@ -31,6 +31,8 @@ class _cartoonbookState extends State<cartoonbook> {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -79,8 +81,8 @@ class _cartoonbookState extends State<cartoonbook> {
                 )),
             Positioned(
                 top: 140,
-                left: 50,
-                right: 50,
+              left: 10,
+              right: 10,
                 child: Container(
                     decoration: const BoxDecoration(
                       color: Colors.white,
@@ -93,8 +95,8 @@ class _cartoonbookState extends State<cartoonbook> {
                         )
                       ],
                     ),
-                    width: 330,
-                    height: 600,
+                    width: width - 40,
+                  height: height * 0.75,
                     child: Column(
                       children: [
                         Padding(padding: EdgeInsets.only(top: 20.0)),
@@ -112,38 +114,40 @@ class _cartoonbookState extends State<cartoonbook> {
                               "มังงะ เเละ การ์ตูน",
                               style: GoogleFonts.inter(
                                 // textStyle: Theme.of(context).textTheme.titleLarge,
-                                fontSize: 25,
+                                fontSize: 23,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
                             ),
                           ),
                         ),
-                        Padding(padding: EdgeInsets.only(top: 15.0)),
+                       Padding(padding: EdgeInsets.only(top: 2.5)),
                         Padding(
-                          padding: const EdgeInsets.all(20.0),
+                          padding: const EdgeInsets.all(10.0),
                           child: Positioned(
                             top: 243,
                             left: 50,
                             right: 50,
                             child: Container(
                               // color: Colors.blue,
-                              width: 290,
-                              height: 450,
+                              width: width - 80,
+                              height: height * 0.60,
+                              // width: 290,
+                              // height: 450,
 
                               child: GridView.builder(
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 1, // จำนวนคอลัมน์ในแต่ละแถว
                                   childAspectRatio:
-                                      2, // สัดส่วนของความสูงต่อความกว้าง
+                                      1.5, // สัดส่วนของความสูงต่อความกว้าง
                                 ),
                                 itemCount: _documents.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   DocumentSnapshot document = _documents[index];
                                   return Center(
                                     child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.all(2.0),
                                       child: Container(
                                         // color: Colors.blueGrey,
                                         child: Row(
@@ -165,7 +169,7 @@ class _cartoonbookState extends State<cartoonbook> {
                                               ),
                                             ),
                                             const SizedBox(
-                                              width: 20,
+                                              width: 15,
                                             ),
                                             Container(
                                               // color: Colors.amber,
@@ -175,7 +179,7 @@ class _cartoonbookState extends State<cartoonbook> {
                                                 children: [
                                                   Container(
                                                       // color: Colors.cyan,
-                                                      width: 150,
+                                                      width: 200,
                                                       height: 20,
                                                       child: Text(
                                                         document["Name"],
@@ -185,33 +189,39 @@ class _cartoonbookState extends State<cartoonbook> {
                                                           fontSize: 12,
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          color: Color.fromARGB(255, 0, 0, 0),
+                                                          color: Color.fromARGB(
+                                                              255, 0, 0, 0),
                                                         ),
                                                         softWrap: true,
                                                         maxLines: 1,
                                                       )),
                                                   Container(
                                                       // color: Colors.cyan,
-                                                      width: 150,
+                                                      width: 200,
                                                       height: 75,
-                                                      
-                                                      child: SingleChildScrollView(
+                                                      child:
+                                                          SingleChildScrollView(
                                                         child: Center(
                                                           child: Text(
                                                             document["info"],
-                                                            style:
-                                                                GoogleFonts.inter(
+                                                            style: GoogleFonts
+                                                                .inter(
                                                               // textStyle: Theme.of(context).textTheme.titleLarge,
                                                               fontSize: 12,
                                                               fontWeight:
-                                                                  FontWeight.w500,
-                                                              color: Color.fromARGB(255, 0, 0, 0),
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color: Color
+                                                                  .fromARGB(255,
+                                                                      0, 0, 0),
                                                             ),
                                                             softWrap: true,
-                                                            
                                                           ),
                                                         ),
                                                       )),
+                                                  const SizedBox(
+                                                    height: 5,
+                                                  ),
                                                   InkWell(
                                                     onTap: () {},
                                                     child: Container(
