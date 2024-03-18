@@ -1,5 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kmunity_se/AllDetailsScreen/detailbook_screen.dart';
@@ -19,7 +20,7 @@ class mathbook extends StatefulWidget {
 class _mathbookState extends State<mathbook> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<DocumentSnapshot> _documents = [];
-
+User? user = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
     super.initState();
@@ -233,84 +234,105 @@ class _mathbookState extends State<mathbook> {
                                                   const SizedBox(
                                                     height: 5,
                                                   ),
-                                                  ElevatedButton(
-                                                    onPressed:
-                                                        document["status"]
-                                                            ? () {
-                                                                showAwesomeDialog3(
-                                                                    context);
-                                                                // print("พอเเล้วพอเสียที");
-                                                              }
-                                                            : () {
-                                                                showAwesomeDialog(
-                                                                    context,
-                                                                    document,
-                                                                    collection1);
-                                                              },
-                                                    style: document["status"]
-                                                        ? ElevatedButton
-                                                            .styleFrom(
-                                                            primary: Colors.red,
-                                                            onPrimary:
-                                                                Colors.white,
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                                    vertical: 5,
-                                                                    horizontal:
-                                                                        5), // การระบุขนาดของปุ่ม
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            20)),
-                                                            elevation: 5,
-                                                          )
-                                                        : ElevatedButton
-                                                            .styleFrom(
-                                                            primary:
-                                                                Colors.orange,
-                                                            onPrimary:
-                                                                Colors.white,
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                                    vertical: 5,
-                                                                    horizontal:
-                                                                        5), // การระบุขนาดของปุ่ม
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            20)),
-                                                            elevation: 5,
-                                                          ),
-                                                    child: document["status"]
-                                                        ? Text(
-                                                            "ถูกยืมเเล้ว",
-                                                            style: GoogleFonts
-                                                                .inter(
-                                                              // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                              fontSize: 17,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                          )
-                                                        : Text(
-                                                            "จอง",
-                                                            style: GoogleFonts
-                                                                .inter(
-                                                              // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                              fontSize: 17,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                          ),
-                                                  )
+                                                  StreamBuilder(
+                                                      stream: FirebaseFirestore
+                                                          .instance
+                                                          .collection('user')
+                                                          .doc(user!.uid)
+                                                          .snapshots(),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        if (snapshot.hasData) {
+                                                          bool Data = snapshot.data?.data()?['have_book'];
+                                                          return ElevatedButton(
+                                                            onPressed: document[
+                                                                    "status"] || Data
+                                                                ? () {
+                                                                    showAwesomeDialog3(
+                                                                        context);
+
+                                                                    // print("พอเเล้วพอเสียที");
+                                                                  }
+                                                                : () {
+                                                                    showAwesomeDialog(
+                                                                        context,
+                                                                        document,
+                                                                        collection1);
+                                                                  },
+                                                            style: document[
+                                                                    "status"]
+                                                                ? ElevatedButton
+                                                                    .styleFrom(
+                                                                    primary:
+                                                                        Colors
+                                                                            .red,
+                                                                    onPrimary:
+                                                                        Colors
+                                                                            .white,
+                                                                    padding: EdgeInsets.symmetric(
+                                                                        vertical:
+                                                                            5,
+                                                                        horizontal:
+                                                                            5), // การระบุขนาดของปุ่ม
+                                                                    shape: RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(20)),
+                                                                    elevation:
+                                                                        5,
+                                                                  )
+                                                                : ElevatedButton
+                                                                    .styleFrom(
+                                                                    primary: Colors
+                                                                        .orange,
+                                                                    onPrimary:
+                                                                        Colors
+                                                                            .white,
+                                                                    padding: EdgeInsets.symmetric(
+                                                                        vertical:
+                                                                            5,
+                                                                        horizontal:
+                                                                            5), // การระบุขนาดของปุ่ม
+                                                                    shape: RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(20)),
+                                                                    elevation:
+                                                                        5,
+                                                                  ),
+                                                            child: document[
+                                                                    "status"]
+                                                                ? Text(
+                                                                    "ถูกยืมเเล้ว",
+                                                                    style: GoogleFonts
+                                                                        .inter(
+                                                                      // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                                      fontSize:
+                                                                          17,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                  )
+                                                                : Text(
+                                                                    "จอง",
+                                                                    style: GoogleFonts
+                                                                        .inter(
+                                                                      // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                                      fontSize:
+                                                                          17,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                  ),
+                                                          );
+                                                        } else {
+                                                          return CircularProgressIndicator();
+                                                        }
+                                                      }),
                                                 ],
                                               ),
                                             ),
@@ -352,6 +374,7 @@ class _mathbookState extends State<mathbook> {
               showAwesomeDialog2(context);
               FirebaseAuthService().Update_User(d["ID"]);
               FirebaseAuthService().Update_Book(collection1, d["ID"], true);
+              FirebaseAuthService().Update_user1(true);
             },
       btnOkColor: const Color.fromARGB(255, 112, 157, 114),
       btnOkText: "ยืนยัน",
@@ -383,11 +406,18 @@ class _mathbookState extends State<mathbook> {
         .show();
   }
 
-  void showAwesomeDialog3(BuildContext context) {
+ void showAwesomeDialog3(BuildContext context) {
     AwesomeDialog(
       context: context,
       dialogType: DialogType.error,
       title: 'การยืมล้มเหลวโปรดลองใหม่อีกครั้ง',
+      desc: "มีการยืมหนังสือไปเเล้วหรือคุณมีหนังสือที่ยืมอยู่เเล้ว",
+      descTextStyle: GoogleFonts.inter(
+        // textStyle: Theme.of(context).textTheme.titleLarge,
+        fontSize: 15,
+        fontWeight: FontWeight.w700,
+        color: Color.fromARGB(255, 250, 200, 197),
+      ),
       titleTextStyle: GoogleFonts.inter(
         // textStyle: Theme.of(context).textTheme.titleLarge,
         fontSize: 25,

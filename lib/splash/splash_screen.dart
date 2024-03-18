@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -11,8 +12,14 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
+
+    
 @override
+
   void initState() {
+    
+    _route();
+  
     Future.delayed(
       Duration(seconds: 3),(){
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => widget.child!), (route) => false);
@@ -36,4 +43,19 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
+
+ Future<void> _route() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    
+    String? role = prefs.getString('userRole');
+    switch (role) {
+      case "user":
+        Navigator.pushReplacementNamed(context, "/user");
+        break;
+      case "admin":
+        Navigator.pushReplacementNamed(context, "/admin");
+        break;
+    }
+    
+    }
 }

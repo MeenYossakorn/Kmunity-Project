@@ -56,7 +56,7 @@ class FirebaseAuthService {
     }
   }
 
-  Future<bool> Update_User(
+  Future Update_User(
     String ID_book,
   ) async {
     try {
@@ -66,27 +66,78 @@ class FirebaseAuthService {
           .doc(_auth.currentUser!.uid)
           .collection('status_user')
           .doc('Status_check')
-          .update({
-        'time': '${data.day}:${data.hour}:${data.minute}',
-        'ID_book': ID_book,
-        'status': true,
-      });
-      return true;
+          .update(
+        {
+          'time': '${data.day}:${data.hour}:${data.minute}',
+          'ID_book': ID_book,
+        },
+      );
     } catch (e) {
       print(e);
-      return true;
     }
   }
 
-  Future<bool> Update_Book(String collec, String book_id, bool status) async {
+  Future Update_Book(String collec, String book_id, bool status) async {
     try {
       await _firestore.collection(collec).doc(book_id).update({
         'status': status,
       });
-      return true;
     } catch (e) {
       print(e);
-      return true;
     }
   }
+
+  Future Update_user1(bool status) async {
+    try {
+      await _firestore.collection('user').doc(_auth.currentUser!.uid).update({
+        'have_book': status,
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future Update_User_board(
+    String ID_boardgame,
+  ) async {
+    try {
+      DateTime data = new DateTime.now();
+      await _firestore
+          .collection('user')
+          .doc(_auth.currentUser!.uid)
+          .collection('status_user')
+          .doc('Status_boardgame')
+          .update(
+        {
+          'time': '${data.day}:${data.hour}:${data.minute}',
+          'ID_boardgame': ID_boardgame,
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future Update_Board(String collec, String book_id, bool status) async {
+    try {
+      await _firestore.collection(collec).doc(book_id).update({
+        'status': status,
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future Update_user_board1(bool status) async {
+    try {
+      await _firestore.collection('user').doc(_auth.currentUser!.uid).update({
+        'have_boardgame': status,
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+   
+    
 }

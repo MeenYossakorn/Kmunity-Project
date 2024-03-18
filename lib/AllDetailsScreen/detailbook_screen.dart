@@ -1,5 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kmunity_se/Auth/authentication.dart';
 import 'package:kmunity_se/Screens/BookingBook_screen.dart';
@@ -16,12 +17,14 @@ class detailbookscreen extends StatefulWidget {
 
   detailbookscreen(this.Namebook, this.Detailbook, this.image, this.documentID,
       this.collec, this.d);
+      
 
   @override
   State<detailbookscreen> createState() => _detailbookscreenState();
 }
 
 class _detailbookscreenState extends State<detailbookscreen> {
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -150,60 +153,76 @@ class _detailbookscreenState extends State<detailbookscreen> {
                           ),
                         ),
                       ),
-                      ElevatedButton(
-                        onPressed: widget.d["status"]
-                            ? () {
-                                showAwesomeDialog3(context);
-                              }
-                            : () {
-                                showAwesomeDialog(
-                                    context, widget.d, widget.collec);
-                              },
-                        style: widget.d["status"]
-                            ? ElevatedButton.styleFrom(
-                                primary: Colors.red, // สีพื้นหลังของปุ่ม
-                                onPrimary:
-                                    Colors.white, // สีของตัวอักษรภายในปุ่ม
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10,
-                                    horizontal: 25), // การระบุขนาดของปุ่ม
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        20)), // การปรับรูปร่างของปุ่มเป็นรูปร่างวงกลม
-                                elevation: 5, // การกำหนดเงาของปุ่ม
-                              )
-                            : ElevatedButton.styleFrom(
-                                primary: Colors.orange, // สีพื้นหลังของปุ่ม
-                                onPrimary:
-                                    Colors.white, // สีของตัวอักษรภายในปุ่ม
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10,
-                                    horizontal: 25), // การระบุขนาดของปุ่ม
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        20)), // การปรับรูปร่างของปุ่มเป็นรูปร่างวงกลม
-                                elevation: 5, // การกำหนดเงาของปุ่ม
-                              ),
-                        child: widget.d["status"]
-                            ? Text(
-                                "ถูกยืมเเล้ว",
-                                style: GoogleFonts.inter(
-                                  // textStyle: Theme.of(context).textTheme.titleLarge,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              )
-                            : Text(
-                                "จอง",
-                                style: GoogleFonts.inter(
-                                  // textStyle: Theme.of(context).textTheme.titleLarge,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                      )
+                      StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('user')
+                              .doc(user!.uid)
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              bool Data = snapshot.data?.data()?['have_book'];
+                              return ElevatedButton(
+                                onPressed: widget.d["status"] || Data
+                                    ? () {
+                                        showAwesomeDialog3(context);
+                                      }
+                                    : () {
+                                        showAwesomeDialog(
+                                            context, widget.d, widget.collec);
+                                      },
+                                style: widget.d["status"]
+                                    ? ElevatedButton.styleFrom(
+                                        primary:
+                                            Colors.red, // สีพื้นหลังของปุ่ม
+                                        onPrimary: Colors
+                                            .white, // สีของตัวอักษรภายในปุ่ม
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 10,
+                                            horizontal:
+                                                25), // การระบุขนาดของปุ่ม
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                                20)), // การปรับรูปร่างของปุ่มเป็นรูปร่างวงกลม
+                                        elevation: 5, // การกำหนดเงาของปุ่ม
+                                      )
+                                    : ElevatedButton.styleFrom(
+                                        primary:
+                                            Colors.orange, // สีพื้นหลังของปุ่ม
+                                        onPrimary: Colors
+                                            .white, // สีของตัวอักษรภายในปุ่ม
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 10,
+                                            horizontal:
+                                                25), // การระบุขนาดของปุ่ม
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                                20)), // การปรับรูปร่างของปุ่มเป็นรูปร่างวงกลม
+                                        elevation: 5, // การกำหนดเงาของปุ่ม
+                                      ),
+                                child: widget.d["status"]
+                                    ? Text(
+                                        "ถูกยืมเเล้ว",
+                                        style: GoogleFonts.inter(
+                                          // textStyle: Theme.of(context).textTheme.titleLarge,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    : Text(
+                                        "จอง",
+                                        style: GoogleFonts.inter(
+                                          // textStyle: Theme.of(context).textTheme.titleLarge,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                              );
+                            } else {
+                              return CircularProgressIndicator();
+                            }
+                          }),
                     ],
                   ),
                 ))
@@ -232,6 +251,7 @@ class _detailbookscreenState extends State<detailbookscreen> {
               showAwesomeDialog2(context);
               FirebaseAuthService().Update_User(d["ID"]);
               FirebaseAuthService().Update_Book(collection1, d["ID"], true);
+              FirebaseAuthService().Update_user1(true);
             },
       btnOkColor: const Color.fromARGB(255, 112, 157, 114),
       btnOkText: "ยืนยัน",
@@ -268,6 +288,13 @@ class _detailbookscreenState extends State<detailbookscreen> {
       context: context,
       dialogType: DialogType.error,
       title: 'การยืมล้มเหลวโปรดลองใหม่อีกครั้ง',
+      desc: "มีการยืมหนังสือไปเเล้วหรือคุณมีหนังสือที่ยืมอยู่เเล้ว",
+      descTextStyle: GoogleFonts.inter(
+        // textStyle: Theme.of(context).textTheme.titleLarge,
+        fontSize: 15,
+        fontWeight: FontWeight.w700,
+        color: Color.fromARGB(255, 250, 200, 197),
+      ),
       titleTextStyle: GoogleFonts.inter(
         // textStyle: Theme.of(context).textTheme.titleLarge,
         fontSize: 25,

@@ -1,20 +1,33 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kmunity_se/Screens/BookingBoardgame_screen.dart';
 import 'package:kmunity_se/Screens/BookingBook_screen.dart';
+import 'package:kmunity_se/Screens/Login_screen.dart';
 import 'package:kmunity_se/Screens/Room_screen.dart';
 import 'package:kmunity_se/Screens/admin_infor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class menuscreen extends StatelessWidget {
+class menuscreen extends StatefulWidget {
   menuscreen({super.key});
+
+  @override
+  State<menuscreen> createState() => _menuscreenState();
+}
+
+class _menuscreenState extends State<menuscreen> {
   var height, width;
+
   List imgIcon = [
     "assets/images/book.png",
     "assets/images/meeting.png",
     "assets/images/boardgame.png",
     "assets/images/movie.png",
     "assets/images/feedback.png"
+   
   ];
+
   List imgName = [
     "Booking Book",
     "Booking Room",
@@ -22,13 +35,24 @@ class menuscreen extends StatelessWidget {
     "Movie",
     "Feedback"
   ];
+
   List totap = [
     bookingbookscreen(),
     bookingroomscreen(),
     bookingboardgamescreen(),
     AdminInfoPage(),
-    bookingbookscreen()
+    bookingbookscreen(),
   ];
+
+  void signUserOut() {
+     FirebaseAuth.instance.signOut();
+     
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.remove('role');
+    });
+    Navigator.pushNamed(context, "/login");
+  }
+
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
@@ -45,27 +69,36 @@ class menuscreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            SizedBox(
-              height: height * 0.13, // เลื่อน Container สีเทาอยู่สูงขึ้น
-              child: Align(
-                alignment: Alignment
-                    .bottomCenter, // จัด Text ไว้ที่ด้านล่างของ Container
-                child: Transform.translate(
-                  offset: Offset(0, -30), // ลองปรับค่า offset เพื่อเลื่อนขึ้น
-                  child: Text(
-                    "MENU",
-                    style: GoogleFonts.inter(
-                      textStyle: Theme.of(context).textTheme.titleLarge,
-                      fontSize: 40,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white,
+           
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(width: 50,),
+                SizedBox(
+                  height: height * 0.15, // เลื่อน Container สีเทาอยู่สูงขึ้น
+                  child: Align(
+                    alignment: Alignment
+                        .bottomCenter, // จัด Text ไว้ที่ด้านล่างของ Container
+                    child: Transform.translate(
+                      offset: Offset(0, -30), // ลองปรับค่า offset เพื่อเลื่อนขึ้น
+                      child: Text(
+                        "MENU",
+                        style: GoogleFonts.inter(
+                          textStyle: Theme.of(context).textTheme.titleLarge,
+                          fontSize: 40,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+                 IconButton(onPressed: signUserOut, icon: Icon(Icons.logout)),
+              ],
+
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 10),
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white, // เปลี่ยนสีเป็นเทา

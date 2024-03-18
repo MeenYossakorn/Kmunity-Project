@@ -2,13 +2,14 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kmunity_se/Auth/authentication.dart';
+import 'package:kmunity_se/Screens/BookingBoardgame_screen.dart';
 import 'package:kmunity_se/Screens/BookingBook_screen.dart';
 import 'package:kmunity_se/Screens/bottom_nav.dart';
 import "package:google_fonts/google_fonts.dart";
 
 class detailboardgamescreen extends StatefulWidget {
   final String Namebook;
-  final String Detailbook;
+  final List Detailbook;
   final String image;
   final String documentID;
   final String collec;
@@ -45,7 +46,7 @@ class _detailboardgamescreenState extends State<detailboardgamescreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => bookingbookscreen()),
+                              builder: (context) => bookingboardgamescreen()),
                         );
                       },
                       child: Icon(
@@ -112,13 +113,14 @@ class _detailboardgamescreenState extends State<detailboardgamescreen> {
                           ),
                         ),
                       ),
-                      Padding(padding: EdgeInsets.only(top: 15.0)),
+                      Padding(padding: EdgeInsets.only(top: 10.0)),
                       Container(
-                          height: 210,
-                          width: 140,
+                          height: 140,
+                          width: 210,
+                          // color: Colors.amber,
                           child: Image.network(widget.image)),
                       SizedBox(
-                        height: 10,
+                        height: 5,
                       ),
                       Text(
                         widget.Namebook,
@@ -134,15 +136,13 @@ class _detailboardgamescreenState extends State<detailboardgamescreen> {
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: SingleChildScrollView(
-                            child: Center(
-                              child: Text(
-                                widget.Detailbook,
-                                style: GoogleFonts.inter(
-                                  // textStyle: Theme.of(context).textTheme.titleLarge,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
+                            child: Text(
+                              widget.Detailbook[0],
+                              style: GoogleFonts.inter(
+                                // textStyle: Theme.of(context).textTheme.titleLarge,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -181,6 +181,7 @@ class _detailboardgamescreenState extends State<detailboardgamescreen> {
     );
   }
 
+  
   void showAwesomeDialog(
       BuildContext context, DocumentSnapshot d, String collection1) {
     AwesomeDialog(
@@ -198,8 +199,9 @@ class _detailboardgamescreenState extends State<detailboardgamescreen> {
             }
           : () {
               showAwesomeDialog2(context);
-              FirebaseAuthService().Update_User(d["ID"]);
-              FirebaseAuthService().Update_Book(collection1, d["ID"], true);
+              FirebaseAuthService().Update_User_board(d["ID"]);
+              FirebaseAuthService().Update_Board(collection1, d["ID"], true);
+              FirebaseAuthService().Update_user_board1(true);
             },
       btnOkColor: const Color.fromARGB(255, 112, 157, 114),
       btnOkText: "ยืนยัน",
@@ -236,6 +238,13 @@ class _detailboardgamescreenState extends State<detailboardgamescreen> {
       context: context,
       dialogType: DialogType.error,
       title: 'การยืมล้มเหลวโปรดลองใหม่อีกครั้ง',
+      desc: "มีการยืมหนังสือไปเเล้วหรือคุณมีหนังสือที่ยืมอยู่เเล้ว",
+      descTextStyle: GoogleFonts.inter(
+        // textStyle: Theme.of(context).textTheme.titleLarge,
+        fontSize: 15,
+        fontWeight: FontWeight.w700,
+        color: Color.fromARGB(255, 250, 200, 197),
+      ),
       titleTextStyle: GoogleFonts.inter(
         // textStyle: Theme.of(context).textTheme.titleLarge,
         fontSize: 25,
@@ -245,7 +254,7 @@ class _detailboardgamescreenState extends State<detailboardgamescreen> {
       btnCancelOnPress: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => bookingbookscreen()),
+          MaterialPageRoute(builder: (context) => bookingboardgamescreen()),
         );
       },
       btnCancelColor: const Color.fromARGB(255, 246, 121, 112),
