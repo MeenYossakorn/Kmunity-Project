@@ -138,6 +138,20 @@ class FirebaseAuthService {
     }
   }
 
-   
-    
+  Future<bool> AddNote(String title, String subtitle) async {
+    try {
+      var uuid = Uuid().v4();
+      await _firestore
+          .collection('feedback')
+          .doc(uuid)
+          .set({
+        'title': title,
+        'subtitle': subtitle,
+      });
+      return true;
+    } catch (e) {
+      print(e);
+      return true;
+    }
+  }
 }

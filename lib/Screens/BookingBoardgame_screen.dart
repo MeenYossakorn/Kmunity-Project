@@ -39,6 +39,7 @@ class _bookingboardgamescreenState extends State<bookingboardgamescreen> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     String collection1 = "boardgame";
+    
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(

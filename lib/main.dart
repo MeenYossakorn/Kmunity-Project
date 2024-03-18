@@ -6,7 +6,7 @@ import 'package:kmunity_se/AllDetailsScreen/detailbook_screen.dart';
 import 'package:kmunity_se/BookingScreen/mathbook_screen.dart';
 import 'package:kmunity_se/Screens/BookingBoardgame_screen.dart';
 import 'package:kmunity_se/Screens/Login_screen.dart';
-import 'package:kmunity_se/Screens/Room_screen.dart';
+import 'package:kmunity_se/Allroom/Room_screen.dart';
 import 'package:kmunity_se/Screens/User_screen.dart';
 import 'package:kmunity_se/Screens/bottom_nav.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title : 'Kmunity',
-      //  home: MyButton(),
+      //  home: MyWidget(),
         routes: {
         '/': (context) => SplashScreen(
           // Here, you can decide whether to show the LoginPage or HomePage based on user authentication

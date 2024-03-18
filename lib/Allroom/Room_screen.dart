@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import "package:google_fonts/google_fonts.dart";
 import 'package:kmunity_se/AllDetailsScreen/detailboardgame_screen.dart';
+import 'package:kmunity_se/Allroom/selectroom_screen.dart';
 import 'package:kmunity_se/Screens/bottom_nav.dart';
 
 class bookingroomscreen extends StatefulWidget {
@@ -254,12 +255,17 @@ class _bookingroomscreenState extends State<bookingroomscreen> {
                                               ),
                                               ElevatedButton(
                                                 onPressed: () {
-                                                  // showAwesomeDialog(context);
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            selectroomscreen()),
+                                                  );
                                                 },
                                                 style: ElevatedButton.styleFrom(
                                                   primary: Colors.orange,
                                                   onPrimary: Colors.white,
-                                                  
+
                                                   padding: EdgeInsets.symmetric(
                                                       vertical: 5,
                                                       horizontal:

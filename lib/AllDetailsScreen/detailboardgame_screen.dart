@@ -1,5 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kmunity_se/Auth/authentication.dart';
 import 'package:kmunity_se/Screens/BookingBoardgame_screen.dart';
@@ -23,8 +24,11 @@ class detailboardgamescreen extends StatefulWidget {
 }
 
 class _detailboardgamescreenState extends State<detailboardgamescreen> {
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -73,8 +77,8 @@ class _detailboardgamescreenState extends State<detailboardgamescreen> {
                 )),
             Positioned(
                 top: 140,
-                left: 50,
-                right: 50,
+                left: 10,
+                right: 10,
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Colors.white,
@@ -87,8 +91,8 @@ class _detailboardgamescreenState extends State<detailboardgamescreen> {
                       )
                     ],
                   ),
-                  width: 330,
-                  height: 600,
+                  width: width - 40,
+                  height: height * 0.75,
                   child: Column(
                     children: [
                       Padding(padding: EdgeInsets.only(top: 20.0)),
@@ -113,7 +117,7 @@ class _detailboardgamescreenState extends State<detailboardgamescreen> {
                           ),
                         ),
                       ),
-                      Padding(padding: EdgeInsets.only(top: 10.0)),
+                      Padding(padding: EdgeInsets.only(top: 15.0)),
                       Container(
                           height: 140,
                           width: 210,
@@ -133,45 +137,136 @@ class _detailboardgamescreenState extends State<detailboardgamescreen> {
                       ),
                       Container(
                         height: 200,
+                        width:300 ,
+                        // color: Colors.amber,
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: SingleChildScrollView(
-                            child: Text(
-                              widget.Detailbook[0],
-                              style: GoogleFonts.inter(
-                                // textStyle: Theme.of(context).textTheme.titleLarge,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    widget.Detailbook[0],
+                                    style: GoogleFonts.inter(
+                                      // textStyle: Theme.of(context).textTheme.titleLarge,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Text(
+                                    widget.Detailbook[1],
+                                    style: GoogleFonts.inter(
+                                      // textStyle: Theme.of(context).textTheme.titleLarge,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Text(
+                                    widget.Detailbook[2],
+                                    style: GoogleFonts.inter(
+                                      // textStyle: Theme.of(context).textTheme.titleLarge,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Text(
+                                    widget.Detailbook[3],
+                                    style: GoogleFonts.inter(
+                                      // textStyle: Theme.of(context).textTheme.titleLarge,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    widget.Detailbook[4],
+                                    style: GoogleFonts.inter(
+                                      // textStyle: Theme.of(context).textTheme.titleLarge,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                         ),
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          //  showAwesomeDialog(context);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.orange,
-                          onPrimary: Colors.white,
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10,
-                              horizontal: 25), // การระบุขนาดของปุ่ม
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          elevation: 5,
-                        ),
-                        child: Text(
-                          "จอง",
-                          style: GoogleFonts.inter(
-                            // textStyle: Theme.of(context).textTheme.titleLarge,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      )
+                      StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('user')
+                              .doc(user!.uid)
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              bool Data = snapshot.data?.data()?['have_boardgame'];
+                              return ElevatedButton(
+                                onPressed: widget.d["status"] || Data
+                                    ? () {
+                                        showAwesomeDialog3(context);
+                                      }
+                                    : () {
+                                        showAwesomeDialog(
+                                            context, widget.d, widget.collec);
+                                      },
+                                style: widget.d["status"]
+                                    ? ElevatedButton.styleFrom(
+                                        primary:
+                                            Colors.red, // สีพื้นหลังของปุ่ม
+                                        onPrimary: Colors
+                                            .white, // สีของตัวอักษรภายในปุ่ม
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 10,
+                                            horizontal:
+                                                25), // การระบุขนาดของปุ่ม
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                                20)), // การปรับรูปร่างของปุ่มเป็นรูปร่างวงกลม
+                                        elevation: 5, // การกำหนดเงาของปุ่ม
+                                      )
+                                    : ElevatedButton.styleFrom(
+                                        primary:
+                                            Colors.orange, // สีพื้นหลังของปุ่ม
+                                        onPrimary: Colors
+                                            .white, // สีของตัวอักษรภายในปุ่ม
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 10,
+                                            horizontal:
+                                                25), // การระบุขนาดของปุ่ม
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                                20)), // การปรับรูปร่างของปุ่มเป็นรูปร่างวงกลม
+                                        elevation: 5, // การกำหนดเงาของปุ่ม
+                                      ),
+                                child: widget.d["status"]
+                                    ? Text(
+                                        "ถูกยืมเเล้ว",
+                                        style: GoogleFonts.inter(
+                                          // textStyle: Theme.of(context).textTheme.titleLarge,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    : Text(
+                                        "จอง",
+                                        style: GoogleFonts.inter(
+                                          // textStyle: Theme.of(context).textTheme.titleLarge,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                              );
+                            } else {
+                              return CircularProgressIndicator();
+                            }
+                          }),
                     ],
                   ),
                 ))
