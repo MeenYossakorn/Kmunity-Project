@@ -74,7 +74,6 @@ class NavigationController extends GetxController {
     homescreen(),
     mailscreen(),
     userscreen(),
-    
     menuscreen(),
   ];
 }

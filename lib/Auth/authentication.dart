@@ -227,5 +227,36 @@ class FirebaseAuthService {
       return true;
     }
   }
-
+Future Vote(
+    bool vote,
+  ) async {
+    try {
+      await _firestore
+          .collection('user')
+          .doc(_auth.currentUser!.uid)
+          .update(
+        {
+          'have_vote_movie': vote,
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+  Future Vote1(
+    String ID_movie,
+  ) async {
+    try {
+      await _firestore
+          .collection('movieselect')
+          .doc(ID_movie)
+          .update(
+        {
+          'vote': FieldValue.increment(1) ,
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
 }

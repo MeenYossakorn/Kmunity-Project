@@ -9,6 +9,7 @@ import 'package:kmunity_se/Screens/Login_screen.dart';
 import 'package:kmunity_se/Allroom/Room_screen.dart';
 import 'package:kmunity_se/Screens/admin_infor.dart';
 import 'package:kmunity_se/Screens/feedback_screen.dart';
+import 'package:kmunity_se/Screens/movie_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class menuscreen extends StatefulWidget {
@@ -42,7 +43,7 @@ class _menuscreenState extends State<menuscreen> {
     bookingbookscreen(),
     bookingroomscreen(),
     bookingboardgamescreen(),
-    AdminInfoPage(),
+    moviescreen(),
     feedbackscreen(),
   ];
 

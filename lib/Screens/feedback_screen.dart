@@ -26,10 +26,6 @@ class _feedbackscreenState extends State<feedbackscreen> {
     var width = MediaQuery.of(context).size.width;
     // final TextEditingController _textEditingController = TextEditingController();
 
-    
-
-   
-
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
