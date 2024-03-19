@@ -259,7 +259,7 @@ class _bookingroomscreenState extends State<bookingroomscreen> {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            selectroomscreen()),
+                                                            selectroomscreen(document)),
                                                   );
                                                 },
                                                 style: ElevatedButton.styleFrom(

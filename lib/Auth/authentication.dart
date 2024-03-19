@@ -66,7 +66,7 @@ class FirebaseAuthService {
           .doc(_auth.currentUser!.uid)
           .collection('status_user')
           .doc('Status_check')
-          .update(
+          .set(
         {
           'time': '${data.day}:${data.hour}:${data.minute}',
           'ID_book': ID_book,
@@ -107,7 +107,7 @@ class FirebaseAuthService {
           .doc(_auth.currentUser!.uid)
           .collection('status_user')
           .doc('Status_boardgame')
-          .update(
+          .set(
         {
           'time': '${data.day}:${data.hour}:${data.minute}',
           'ID_boardgame': ID_boardgame,
@@ -138,6 +138,62 @@ class FirebaseAuthService {
     }
   }
 
+  Future Update_user_room(
+    String ID_room,String Name
+  ) async {
+    try {
+      DateTime data = new DateTime.now();
+      await _firestore
+          .collection('user')
+          .doc(_auth.currentUser!.uid)
+          .collection('status_user')
+          .doc('Status_room')
+          .set(
+        {
+          'time': '${data.day}:${data.hour}:${data.minute}',
+          'ID_room': ID_room,
+          'Name' : Name,
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+  Future Update_user_room2(
+    bool have_room,
+  ) async {
+    try {
+      DateTime data = new DateTime.now();
+      await _firestore
+          .collection('user')
+          .doc(_auth.currentUser!.uid)
+          .update(
+        {
+          'have_room': have_room,
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+  Future Update_user_room3(
+    String Troom,bool Troom1 , String ID_room, 
+  ) async {
+    try {
+      DateTime data = new DateTime.now();
+      await _firestore
+          .collection('room')
+          .doc(ID_room)
+          .update(
+        {
+          '$Troom': Troom1,
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<bool> AddNote(String title, String subtitle) async {
     try {
       var uuid = Uuid().v4();
@@ -154,4 +210,22 @@ class FirebaseAuthService {
       return true;
     }
   }
+
+  Future<bool> AddNoteroom(String title, String subtitle) async {
+    try {
+      var uuid = Uuid().v4();
+      await _firestore
+          .collection('feedback')
+          .doc(uuid)
+          .set({
+        'title': title,
+        'subtitle': subtitle,
+      });
+      return true;
+    } catch (e) {
+      print(e);
+      return true;
+    }
+  }
+
 }
