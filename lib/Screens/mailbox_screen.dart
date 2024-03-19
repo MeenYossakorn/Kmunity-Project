@@ -37,7 +37,7 @@ class mailscreen extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: height * 0.15, // เลื่อน Container สีเทาอยู่สูงขึ้น
+              height: height * 0.17, // เลื่อน Container สีเทาอยู่สูงขึ้น
               child: Align(
                 alignment: Alignment
                     .bottomCenter, // จัด Text ไว้ที่ด้านล่างของ Container
@@ -57,7 +57,7 @@ class mailscreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(
-                  20, 0, 20, 20), // เพิ่มความสูงด้านบนเป็น 40
+                  0, 0, 0, 0), // เพิ่มความสูงด้านบนเป็น 40
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,

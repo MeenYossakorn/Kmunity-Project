@@ -78,7 +78,7 @@ class _menuscreenState extends State<menuscreen> {
               children: [
                 SizedBox(width: 50,),
                 SizedBox(
-                  height: height * 0.15, // เลื่อน Container สีเทาอยู่สูงขึ้น
+                  height: height * 0.17, // เลื่อน Container สีเทาอยู่สูงขึ้น
                   child: Align(
                     alignment: Alignment
                         .bottomCenter, // จัด Text ไว้ที่ด้านล่างของ Container
@@ -114,7 +114,7 @@ class _menuscreenState extends State<menuscreen> {
                     )
                   ],
                 ),
-                height: height * 0.73, // ปรับความสูงของ Container สีเทา
+                height: height * 0.70, // ปรับความสูงของ Container สีเทา
                 width: width - 40,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20.0, 30.0, 20.0,

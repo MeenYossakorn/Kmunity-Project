@@ -69,7 +69,7 @@ class _userscreenState extends State<userscreen> {
                         ],
                       ),
                       width: width - 40,
-                      height: 280,
+                      height: 165,
                       child: StreamBuilder(
                           stream: FirebaseFirestore.instance
                               .collection('user')
@@ -80,62 +80,68 @@ class _userscreenState extends State<userscreen> {
                               var img = snapshot.data?.data()?['image'];
                               var name = snapshot.data?.data()?['name'];
                               var email = snapshot.data?.data()?['email'];
-                              return Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Positioned(
-                                      top: 124,
-                                      left: 50,
-                                      right: 50,
-                                      child: Container(
-                                          decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            gradient: LinearGradient(
-                                              begin: Alignment.topRight,
-                                              end: Alignment.bottomLeft,
-                                              colors: [
-                                                Colors.white,
-                                                Colors.orange
-                                              ],
-                                            ),
+                              return Row(
+                                children: [
+                                  SizedBox(width: 5,),
+                                  Positioned(
+                                    top: 124,
+                                    left: 10,
+                                    right: 50,
+                                    child: Container(
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topRight,
+                                            end: Alignment.bottomLeft,
+                                            colors: [
+                                              Colors.white,
+                                              Colors.orange
+                                            ],
                                           ),
-                                          width: 134,
-                                          height: 134,
-                                          child: Center(
-                                            child: CircleAvatar(
-                                              radius: 61,
-                                              backgroundImage: NetworkImage(
-                                                  img ?? "No data"),
-                                            ),
-                                          )),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      name ?? 'No data',
-                                      style: GoogleFonts.inter(
-                                        // textStyle: Theme.of(context).textTheme.titleLarge,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: const Color(0xFFFF7500),
+                                        ),
+                                        width: 134,
+                                        height: 134,
+                                        child: Center(
+                                          child: CircleAvatar(
+                                            radius: 61,
+                                            backgroundImage: NetworkImage(
+                                                img ),
+                                          ),
+                                        )),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Column(
+                                    children: [
+                                      SizedBox(
+                                    height: 75,
+                                  ),
+                                      Text(
+                                        name,
+                                        style: GoogleFonts.inter(
+                                          // textStyle: Theme.of(context).textTheme.titleLarge,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: const Color(0xFFFF7500),
+                                        ),
                                       ),
+                                      SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    email,
+                                    style: GoogleFonts.inter(
+                                      // textStyle: Theme.of(context).textTheme.titleLarge,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w700,
+                                      color: const Color(0xFFFF7500),
                                     ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      email ?? 'No data',
-                                      style: GoogleFonts.inter(
-                                        // textStyle: Theme.of(context).textTheme.titleLarge,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w700,
-                                        color: const Color(0xFFFF7500),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                    ],
+                                  ),
+                                  
+                                ],
                               );
                             } else {
                               return Center(
@@ -144,7 +150,7 @@ class _userscreenState extends State<userscreen> {
                             }
                           }))),
               Positioned(
-                  top: 408,
+                  top: 300,
                   left: 10,
                   right: 10,
                   child: Container(
@@ -203,8 +209,8 @@ class _userscreenState extends State<userscreen> {
                           height: 10,
                         ),
                         Container(
-                          width: 400,
-                          height: 250,
+                          width: 380,
+                          height: 300,
                           decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.all(Radius.circular(24)),
@@ -250,7 +256,7 @@ class _userscreenState extends State<userscreen> {
                                                   topicstu[index],
                                                   style: GoogleFonts.inter(
                                                     // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                    fontSize: 13,
+                                                    fontSize: 15,
                                                     fontWeight:
                                                         FontWeight.bold,
                                                     color:
@@ -262,10 +268,10 @@ class _userscreenState extends State<userscreen> {
                                             Row(
                                               children: [
                                                 Text(
-                                                  Data[index] ?? "No Data",
+                                                  Data[index] ,
                                                   style: GoogleFonts.inter(
                                                     // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                    fontSize: 13,
+                                                    fontSize: 15,
                                                     fontWeight:
                                                         FontWeight.w800,
                                                     color:

@@ -72,7 +72,7 @@ class _bookingboardgamescreenState extends State<bookingboardgamescreen> {
                   ],
                 )),
             Positioned(
-              top: 80,
+              top: 95,
               left: 50,
               right: 50,
               child: Center(
@@ -80,7 +80,7 @@ class _bookingboardgamescreenState extends State<bookingboardgamescreen> {
                   "Booking Boardgame",
                   style: GoogleFonts.inter(
                     // textStyle: Theme.of(context).textTheme.titleLarge,
-                    fontSize: 28,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),

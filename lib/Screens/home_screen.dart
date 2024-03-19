@@ -27,7 +27,7 @@ class _homescreenState extends State<homescreen> {
         child: Stack(
           children: [
             Positioned(
-              top: 60,
+              top: 55,
               left: 20,
               child: Container(
                 child: Row(
@@ -40,7 +40,7 @@ class _homescreenState extends State<homescreen> {
                             'HELLO !',
                             style: GoogleFonts.poppins(
                               textStyle: Theme.of(context).textTheme.titleLarge,
-                              fontSize: 33,
+                              fontSize: 28,
                               fontWeight: FontWeight.w800,
                               color: Colors.white,
                             ),
@@ -53,7 +53,7 @@ class _homescreenState extends State<homescreen> {
               ),
             ),
             Positioned(
-              top: 100,
+              top: 85,
               left: 20,
               child: Container(
                 child: Row(
@@ -66,7 +66,7 @@ class _homescreenState extends State<homescreen> {
                             'Welcome To Kmunity',
                             style: GoogleFonts.poppins(
                               textStyle: Theme.of(context).textTheme.titleLarge,
-                              fontSize: 33,
+                              fontSize: 28,
                               fontWeight: FontWeight.w800,
                               color: Colors.white,
                             ),
@@ -79,7 +79,7 @@ class _homescreenState extends State<homescreen> {
               ),
             ),
             Positioned(
-              top: 180,
+              top: 130,
               left: 20,
               child: Container(
                 child: Row(
@@ -105,7 +105,7 @@ class _homescreenState extends State<homescreen> {
               ),
             ),
             Positioned(
-              top: 230,
+              top: 180,
               left: 0,
               child: Container(
                 width: MediaQuery.of(context).size.width,
@@ -171,7 +171,7 @@ class _homescreenState extends State<homescreen> {
               ),
             ),
             Positioned(
-              top: 450,
+              top: 395,
               left: 20,
               child: Container(
                 child: Row(
@@ -197,7 +197,7 @@ class _homescreenState extends State<homescreen> {
               ),
             ),
             Positioned(
-              top: 500,
+              top: 410,
               left: 20,
               child: Container(
                 width: MediaQuery.of(context).size.width - 40,
