@@ -34,6 +34,11 @@ class _EditInfoPageState extends State<EditInfoPage> {
             TextField(
               controller: _textEditingController,
               decoration: InputDecoration(labelText: 'ข้อความ'),
+              keyboardType:
+                  TextInputType.multiline, 
+              maxLines: null, 
+              textInputAction:
+                  TextInputAction.newline,
             ),
             SizedBox(height: 20.0),
             ElevatedButton(
