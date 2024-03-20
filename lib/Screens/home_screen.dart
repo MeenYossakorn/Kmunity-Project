@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-
-
 class homescreen extends StatefulWidget {
   const homescreen({super.key});
 
@@ -27,7 +25,7 @@ class _homescreenState extends State<homescreen> {
         child: Stack(
           children: [
             Positioned(
-              top: 55,
+              top: 60,
               left: 20,
               child: Container(
                 child: Row(
@@ -40,7 +38,7 @@ class _homescreenState extends State<homescreen> {
                             'HELLO !',
                             style: GoogleFonts.poppins(
                               textStyle: Theme.of(context).textTheme.titleLarge,
-                              fontSize: 28,
+                              fontSize: 33,
                               fontWeight: FontWeight.w800,
                               color: Colors.white,
                             ),
@@ -53,7 +51,7 @@ class _homescreenState extends State<homescreen> {
               ),
             ),
             Positioned(
-              top: 85,
+              top: 100,
               left: 20,
               child: Container(
                 child: Row(
@@ -66,7 +64,7 @@ class _homescreenState extends State<homescreen> {
                             'Welcome To Kmunity',
                             style: GoogleFonts.poppins(
                               textStyle: Theme.of(context).textTheme.titleLarge,
-                              fontSize: 28,
+                              fontSize: 33,
                               fontWeight: FontWeight.w800,
                               color: Colors.white,
                             ),
@@ -79,7 +77,7 @@ class _homescreenState extends State<homescreen> {
               ),
             ),
             Positioned(
-              top: 130,
+              top: 180,
               left: 20,
               child: Container(
                 child: Row(
@@ -105,7 +103,7 @@ class _homescreenState extends State<homescreen> {
               ),
             ),
             Positioned(
-              top: 180,
+              top: 230,
               left: 0,
               child: Container(
                 width: MediaQuery.of(context).size.width,
@@ -133,24 +131,30 @@ class _homescreenState extends State<homescreen> {
                                 children: [
                                   Image.network(
                                     data['image'],
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.fill, // ย่อให้ภาพเต็มพื้นที่
                                     width: double.infinity,
-                                    height: double.infinity,
+                                    height: 150,
+                                    alignment: Alignment.center,
                                   ),
                                   Positioned(
-                                    bottom: 10,
-                                    left: 10,
+                                    height: 100,
+                                    bottom: 0,
+                                    left: 0,
+                                    right: 0,
                                     child: Container(
                                       padding: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white.withOpacity(
+                                            0.7), // เพิ่มการทำให้พื้นหลังของข้อความมีความโปร่งใส
+                                        
                                       ),
                                       child: Text(
                                         data['text'],
+                                        textAlign: TextAlign
+                                            .center, // จัดให้ข้อความอยู่กึ่งกลาง
                                         style: const TextStyle(
                                           color: Colors.black,
-                                          fontSize: 20,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -161,17 +165,17 @@ class _homescreenState extends State<homescreen> {
                             ),
                           );
                         }).toList(),
-                        options: CarouselOptions(height: 200),
+                        options: CarouselOptions(height: 250),
                       );
                     } else {
-                      return CircularProgressIndicator(); // หรือ Widget ที่แสดงให้รู้ว่ากำลังโหลดข้อมูล
+                      return CircularProgressIndicator();
                     }
                   },
                 ),
               ),
             ),
             Positioned(
-              top: 395,
+              top: 500,
               left: 20,
               child: Container(
                 child: Row(
@@ -197,11 +201,11 @@ class _homescreenState extends State<homescreen> {
               ),
             ),
             Positioned(
-              top: 410,
+              top: 550,
               left: 20,
               child: Container(
                 width: MediaQuery.of(context).size.width - 40,
-                height: 400, // กำหนดความสูงของ ListView
+                height: 200, // กำหนดความสูงของ ListView
                 child: ListView(
                   children: [
                     Container(
