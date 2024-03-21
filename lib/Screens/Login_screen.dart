@@ -263,8 +263,9 @@ class _LoginScreenState extends State<LoginScreen> {
       final userData = snapshot.docs[0].data();
       if (userData.containsKey('role')) {
         String role = userData['role'];
+        String id = userData['id'];
 print("Login is successfully signed");
-        saveUserRole(role);
+        saveUserRole(role,id);
         route(role);
       } else {
         print('Error: User document does not contain "role" field');
@@ -274,10 +275,12 @@ print("Login is successfully signed");
     }
   }
 
-  void saveUserRole(String role) async {
+  void saveUserRole(String role,String id) async {
     SharedPreferences.getInstance().then((prefs) {
       prefs.setString('role', role);
+      prefs.setString('id',id);
     });
+    
   }
 
   void route(String role) {

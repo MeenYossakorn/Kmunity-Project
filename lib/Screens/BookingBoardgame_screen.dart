@@ -391,7 +391,7 @@ class _bookingboardgamescreenState extends State<bookingboardgamescreen> {
             }
           : () {
               showAwesomeDialog2(context);
-              FirebaseAuthService().Update_User_board(d["ID"]);
+              FirebaseAuthService().Update_User_board(d["ID"],d["Name"]);
               FirebaseAuthService().Update_Board(collection1, d["ID"], true);
               FirebaseAuthService().Update_user_board1(true);
             },

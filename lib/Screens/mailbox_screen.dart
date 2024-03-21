@@ -5,31 +5,37 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kmunity_se/Auth/authentication.dart';
 import 'package:kmunity_se/constant/constant.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class mailscreen extends StatelessWidget {
-  const mailscreen({super.key});
+  mailscreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-   var height = MediaQuery.of(context).size.height;
-   var width = MediaQuery.of(context).size.width;
+    FirebaseAuthService a = FirebaseAuthService();
+    String uid = a.userid();
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     List imgIcon = [
-    "assets/images/book.png",
-    "assets/images/meeting.png",
-    "assets/images/boardgame.png",
-  ];
-  //  List text = [
-  //   "assets/images/book.png",
-  //   "assets/images/meeting.png",
-  //   "assets/images/boardgame.png",
-   
-  // ];
-  List text = [
-    "เช็คหนังสือที่ยืม",
-    "เช็คห้องที่จอง",
-    "เช็คบอร์ดเกมที่ยืม"
+      "assets/images/book.png",
+      "assets/images/meeting.png",
+      "assets/images/boardgame.png",
+    ];
+    //  List text = [
+    //   "assets/images/book.png",
+    //   "assets/images/meeting.png",
+    //   "assets/images/boardgame.png",
 
-  ];
+    // ];
+
+    List text = ["เช็คหนังสือที่ยืม", "เช็คห้องที่จอง", "เช็คบอร์ดเกมที่ยืม"];
+    List doc = ["Status_check", "Status_room", "Status_boardgame"];
+    List text2 = [
+      "หนังสือของคุณที่ยืม",
+      "ห้องที่คุณจองอยู่",
+      "บอร์ดเกมของคุณที่ยืม"
+    ];
+
     return Scaffold(
       backgroundColor: Colors.orange,
       body: Container(
@@ -83,54 +89,76 @@ class mailscreen extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: 3, // จำนวนรายการที่ต้องการสร้าง
                     itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: (){
-                          print(index);
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: 100,
-                          margin: const EdgeInsets.fromLTRB(10, 6, 10, 6),
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 255, 231, 211),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Row(
-                            children: [
-                              const SizedBox(
-                                  width:
-                                      8), // เพิ่มช่องว่างด้านซ้ายของ Container สีส้ม
-                              Container(
-                                width: 80,
-                                height: 80,
-                                decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 255, 193, 139), // สีเท่า
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset(
-                                        imgIcon[index],
-                                        width: 40,
+                      return StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('user')
+                              .doc(uid)
+                              .collection("status_user")
+                              .doc(doc[index])
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            List aa = [
+                              snapshot.data?.data()?['Name'],
+                              snapshot.data?.data()?['Name'],
+                              snapshot.data?.data()?['Name'],
+                            ];
+                            if (snapshot.hasData) {
+                              return InkWell(
+                                onTap: () {
+                                  showAwesomeDialog(context,text2[index] ,aa[index]);
+                                  // print(aa[index]);
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  height: 100,
+                                  margin:
+                                      const EdgeInsets.fromLTRB(10, 6, 10, 6),
+                                  decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 255, 231, 211),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      const SizedBox(
+                                          width:
+                                              8), // เพิ่มช่องว่างด้านซ้ายของ Container สีส้ม
+                                      Container(
+                                        width: 80,
+                                        height: 80,
+                                        decoration: BoxDecoration(
+                                          color: Color.fromARGB(
+                                              255, 255, 193, 139), // สีเท่า
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Image.asset(
+                                            imgIcon[index],
+                                            width: 40,
+                                          ),
+                                        ),
                                       ),
+                                      const SizedBox(
+                                          width:
+                                              16), // เพิ่มช่องว่างระหว่าง Container
+                                      Text(
+                                        text[index],
+                                        style: GoogleFonts.inter(
+                                          // textStyle: Theme.of(context).textTheme.titleLarge,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(
-                                  width: 16), // เพิ่มช่องว่างระหว่าง Container
-                              Text(
-                                text[index],
-                              style: GoogleFonts.inter(
-                                // textStyle: Theme.of(context).textTheme.titleLarge,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
+                              );
+                            } else {
+                              return CircularProgressIndicator();
+                            }
+                          });
                     },
                   ),
                 ),
@@ -142,22 +170,44 @@ class mailscreen extends StatelessWidget {
     );
   }
 
-  void showAwesomeDialog(BuildContext context, DocumentSnapshot d) {
+  void showAwesomeDialog(BuildContext context, String d ,String c) {
     AwesomeDialog(
       context: context,
-      title: 'คุณต้องการโหวตหนังเรื่องนี้ ?',
+      dialogType: DialogType.noHeader,
+      title: d,
+      titleTextStyle: GoogleFonts.inter(
+        // textStyle: Theme.of(context).textTheme.titleLarge,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: Color.fromARGB(255, 39, 40, 39),
+      ),
+      desc: c,
+      descTextStyle: GoogleFonts.inter(
+        // textStyle: Theme.of(context).textTheme.titleLarge,
+        fontSize: 15,
+        fontWeight: FontWeight.w700,
+        color: Color.fromARGB(255, 96, 96, 96),
+      ),
+      btnOkOnPress: () {},
+      btnOkColor: const Color.fromARGB(255, 112, 157, 114),
+      btnOkText: "ตกลง",
+    ).show();
+  }
+
+  void showAwesomeDialog1(BuildContext context, String d) {
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.noHeader,
+      title: d,
       titleTextStyle: GoogleFonts.inter(
         // textStyle: Theme.of(context).textTheme.titleLarge,
         fontSize: 20,
         fontWeight: FontWeight.bold,
         color: const Color.fromARGB(255, 246, 121, 112),
       ),
-      btnOkOnPress: () {
-        FirebaseAuthService().Vote1(d["ID"]);
-        FirebaseAuthService().Vote(true);
-      },
+      btnOkOnPress: () {},
       btnOkColor: const Color.fromARGB(255, 112, 157, 114),
-      btnOkText: "ยืนยัน",
+      btnOkText: "ตกลง",
       btnCancelOnPress: () {},
     ).show();
   }

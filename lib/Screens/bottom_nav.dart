@@ -24,6 +24,11 @@ class _BottomnavigationbarState extends State<Bottomnavigationbar> {
       bottomNavigationBar: Obx(
         () => Container(
           decoration: const BoxDecoration(
+            color: Color.fromARGB(255, 255, 255, 255),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(35.0),
+              topRight: Radius.circular(35.0), 
+            ),
             boxShadow: [
               BoxShadow(
                 blurRadius: 50,

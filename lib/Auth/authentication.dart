@@ -57,7 +57,7 @@ class FirebaseAuthService {
   }
 
   Future Update_User(
-    String ID_book,
+    String ID_book,String Name
   ) async {
     try {
       DateTime data = new DateTime.now();
@@ -69,6 +69,7 @@ class FirebaseAuthService {
           .set(
         {
           'time': '${data.day}:${data.hour}:${data.minute}',
+          'Name':Name,
           'ID_book': ID_book,
         },
       );
@@ -98,7 +99,7 @@ class FirebaseAuthService {
   }
 
   Future Update_User_board(
-    String ID_boardgame,
+    String ID_boardgame,String Name
   ) async {
     try {
       DateTime data = new DateTime.now();
@@ -110,6 +111,7 @@ class FirebaseAuthService {
           .set(
         {
           'time': '${data.day}:${data.hour}:${data.minute}',
+          'Name':Name,
           'ID_boardgame': ID_boardgame,
         },
       );
@@ -211,22 +213,7 @@ class FirebaseAuthService {
     }
   }
 
-  Future<bool> AddNoteroom(String title, String subtitle) async {
-    try {
-      var uuid = Uuid().v4();
-      await _firestore
-          .collection('feedback')
-          .doc(uuid)
-          .set({
-        'title': title,
-        'subtitle': subtitle,
-      });
-      return true;
-    } catch (e) {
-      print(e);
-      return true;
-    }
-  }
+  
 Future Vote(
     bool vote,
   ) async {
@@ -259,5 +246,8 @@ Future Vote(
       print(e);
     }
   }
-  
+
+   String userid(){
+    return _auth.currentUser!.uid ;
+  }
 }

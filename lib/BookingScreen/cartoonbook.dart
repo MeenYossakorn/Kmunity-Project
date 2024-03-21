@@ -366,7 +366,7 @@ class _cartoonbookState extends State<cartoonbook> {
             }
           : () {
               showAwesomeDialog2(context);
-              FirebaseAuthService().Update_User(d["ID"]);
+              FirebaseAuthService().Update_User(d["ID"],d['Name']);
               FirebaseAuthService().Update_Book(collection1, d["ID"], true);
               FirebaseAuthService().Update_user1(true);
             },
