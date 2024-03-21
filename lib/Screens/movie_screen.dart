@@ -107,162 +107,163 @@ class _moviescreenState extends State<moviescreen> {
                         SizedBox(
                           height: 10,
                         ),
-                        Positioned(
-                          top: 158,
-                          left: 5,
-                          right: 5,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(0xFFFF7302),
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurRadius: 10,
-                                  color: Color.fromARGB(161, 110, 110, 110),
-                                  offset: Offset(0, 0),
-                                )
-                              ],
-                            ),
-                            width: 180,
-                            height: 30,
-                            child: Center(
-                              child: Text(
-                                "โหวดหนังประจำสัปดาห์",
-                                style: GoogleFonts.inter(
-                                  // textStyle: Theme.of(context).textTheme.titleLarge,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
+                        Row(
+                          children: [
+                            SizedBox(width: 50,),
+                            Expanded(
+                              flex: 5,
+                              child: Container(
+                                height: 35,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Color(0xFFFF7302),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          blurRadius: 10,
+                                          color: Color.fromARGB(161, 110, 110, 110),
+                                          offset: Offset(0, 0),
+                                        )
+                                      ],
+                                    ),
+                        
+                                    child: Center(
+                                      child: Text(
+                                        "โหวดหนังประจำสัปดาห์",
+                                        style: GoogleFonts.inter(
+                                          // textStyle: Theme.of(context).textTheme.titleLarge,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
                               ),
                             ),
-                          ),
+                            SizedBox(width: 50,)
+                          ],
                         ),
                         SizedBox(
                           height: 10,
                         ),
-                        Positioned(
-                          top: 243,
-                          left: 50,
-                          right: 50,
-                          child: Container(
+                         Container(
                             // color: Colors.blue,
                             width: 350,
                             height: 450,
 
-                            child: GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 1, // จำนวนคอลัมน์ในแต่ละแถว
-                                childAspectRatio:
-                                    1, // สัดส่วนของความสูงต่อความกว้าง
-                              ),
-                              itemCount: _documents.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                DocumentSnapshot document = _documents[index];
-                                return Padding(
-                                  padding: EdgeInsets.only(top: 10),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color:
-                                            Color.fromARGB(255, 255, 243, 234)),
-                                    child: Center(
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                              padding:
-                                                  EdgeInsets.only(top: 15)),
-                                          Container(
-                                            width: 175,
-                                            height: 200,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      5.0, 0, 0, 0),
-                                              child: Image.network(
-                                                  document["image"]),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Container(
-                                              child: Text(
-                                            document["Name"],
-                                            style: GoogleFonts.inter(
-                                              // textStyle: Theme.of(context).textTheme.titleLarge,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              // color: Color.fromARGB(255, 0, 0, 0),
-                                            ),
-                                            softWrap: true,
-                                            maxLines: 1,
-                                          )),
-                                          SizedBox(
-                                            height: 15,
-                                          ),
-                                          StreamBuilder(
-                                              stream: FirebaseFirestore.instance
-                                                  .collection('user')
-                                                  .doc(user!.uid)
-                                                  .snapshots(),
-                                              builder: (context, snapshot) {
-                                                if (snapshot.hasData) {
-                                                  bool Data =
-                                                      snapshot.data?.data()?[
-                                                          'have_vote_movie'];
-                                                  return ElevatedButton(
-                                                    onPressed: Data
-                                                        ? () {
-                                                            showAwesomeDialog3(
-                                                                context);
-                                                          }
-                                                        : () {
-                                                            showAwesomeDialog(
-                                                                context,
-                                                                document);
-                                                          },
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      primary: Colors.orange,
-                                                      onPrimary: Colors.white,
-                                                      padding: EdgeInsets.symmetric(
-                                                          vertical: 5,
-                                                          horizontal:
-                                                              5), // การระบุขนาดของปุ่ม
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          20)),
-                                                      elevation: 5,
-                                                    ),
-                                                    child: Text(
-                                                      "โหวด",
-                                                      style: GoogleFonts.inter(
-                                                        // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                        fontSize: 17,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  );
-                                                } else {
-                                                  return CircularProgressIndicator();
-                                                }
-                                              }),
-                                        ],
-                                      ),
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1, // จำนวนคอลัมน์ในแต่ละแถว
+                            childAspectRatio:
+                                1, // สัดส่วนของความสูงต่อความกว้าง
+                          ),
+                          itemCount: _documents.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            DocumentSnapshot document = _documents[index];
+                            return
+                        Padding(
+                          padding: EdgeInsets.only(top: 10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color:
+                                  Color.fromARGB(255, 255, 243, 234)),
+                        child: Center(
+                          child: Column(
+                            children: [
+                        Padding(
+                            padding:
+                                EdgeInsets.only(top: 15)),
+                        Container(
+                          width: 175,
+                          height: 200,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.fromLTRB(
+                                    5.0, 0, 0, 0),
+                            child: Image.network(
+                                document["image"]),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                            child: Text(
+                          document["Name"],
+                          style: GoogleFonts.inter(
+                            // textStyle: Theme.of(context).textTheme.titleLarge,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            // color: Color.fromARGB(255, 0, 0, 0),
+                          ),
+                          softWrap: true,
+                          maxLines: 1,
+                        )),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        StreamBuilder(
+                            stream: FirebaseFirestore.instance
+                                .collection('user')
+                                .doc(user!.uid)
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                bool Data =
+                                    snapshot.data?.data()?[
+                                        'have_vote_movie'];
+                                return ElevatedButton(
+                                  onPressed: Data
+                                      ? () {
+                                          showAwesomeDialog3(
+                                              context);
+                                        }
+                                      : () {
+                                          showAwesomeDialog(
+                                              context,
+                                              document);
+                                        },
+                                  style: ElevatedButton
+                                      .styleFrom(
+                                    primary: Colors.orange,
+                                    onPrimary: Colors.white,
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 5,
+                                        horizontal:
+                                            5), // การระบุขนาดของปุ่ม
+                                    shape:
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius
+                                                    .circular(
+                                                        20)),
+                                    elevation: 5,
+                                  ),
+                                  child: Text(
+                                    "โหวด",
+                                    style: GoogleFonts.inter(
+                                      // textStyle: Theme.of(context).textTheme.titleLarge,
+                                      fontSize: 17,
+                                      fontWeight:
+                                          FontWeight.bold,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 );
-                              },
-                            ),
+                              } else {
+                                return CircularProgressIndicator();
+                              }
+                            }),
+                            ],
                           ),
                         ),
+                        ),
+                        );
+                          },
+                        ),
+                          ),
+                        
                       ],
                     )))
           ],

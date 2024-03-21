@@ -129,219 +129,214 @@ class _electronicbookState extends State<electronicbook> {
                        Padding(padding: EdgeInsets.only(top: 2.5)),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Positioned(
-                            top: 243,
-                            left: 50,
-                            right: 50,
-                            child: Container(
-                              // color: Colors.blue,
-                              width: width - 80,
-                              height: height * 0.60,
-                              // width: 290,
-                              // height: 450,
-
-                              child: GridView.builder(
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 1, // จำนวนคอลัมน์ในแต่ละแถว
-                                  childAspectRatio:
-                                      1.5, // สัดส่วนของความสูงต่อความกว้าง
-                                ),
-                                itemCount: _documents.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  DocumentSnapshot document = _documents[index];
-                                  return Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(2.0),
-                                      child: Container(
-                                        // color: Colors.blueGrey,
-                                        child: Row(
-                                          children: [
-                                            InkWell(
-                                              onTap: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          detailbookscreen(
-                                                              document["Name"],
-                                                              document[
-                                                                  "Detail"],
-                                                              document["image"],
-                                                              document.id,
-                                                              collection1,document)),
-                                                );
-                                              },
-                                              child: Container(
-                                                width: 80,
-                                                height: 120,
-                                                child: Image.network(
-                                                    document["image"]),
-                                              ),
+                          child: Container(
+                            // color: Colors.blue,
+                            width: width - 80,
+                            height: height * 0.60,
+                            // width: 290,
+                            // height: 450,
+                          
+                            child: GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 1, // จำนวนคอลัมน์ในแต่ละแถว
+                                childAspectRatio:
+                                    1.5, // สัดส่วนของความสูงต่อความกว้าง
+                              ),
+                              itemCount: _documents.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                DocumentSnapshot document = _documents[index];
+                                return Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Container(
+                                      // color: Colors.blueGrey,
+                                      child: Row(
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        detailbookscreen(
+                                                            document["Name"],
+                                                            document[
+                                                                "Detail"],
+                                                            document["image"],
+                                                            document.id,
+                                                            collection1,document)),
+                                              );
+                                            },
+                                            child: Container(
+                                              width: 80,
+                                              height: 120,
+                                              child: Image.network(
+                                                  document["image"]),
                                             ),
-                                            const SizedBox(
-                                              width: 15,
-                                            ),
-                                            Container(
-                                              // color: Colors.amber,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                      // color: Colors.cyan,
-                                                      width: 200,
-                                                      height: 20,
-                                                      child: Text(
-                                                        document["Name"],
-                                                        style:
-                                                            GoogleFonts.inter(
-                                                          // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                          fontSize: 15,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Color.fromARGB(
-                                                              255, 0, 0, 0),
-                                                        ),
-                                                        softWrap: true,
-                                                        maxLines: 1,
-                                                      )),
-                                                  Container(
-                                                      // color: Colors.cyan,
-                                                      width: 200,
-                                                      height: 75,
-                                                      child:
-                                                          SingleChildScrollView(
-                                                        child: Center(
-                                                          child: Text(
-                                                            document["info"],
-                                                            style: GoogleFonts
-                                                                .inter(
-                                                              // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              color: Color
-                                                                  .fromARGB(255,
-                                                                      0, 0, 0),
-                                                            ),
-                                                            softWrap: true,
+                                          ),
+                                          const SizedBox(
+                                            width: 15,
+                                          ),
+                                          Container(
+                                            // color: Colors.amber,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                    // color: Colors.cyan,
+                                                    width: 200,
+                                                    height: 20,
+                                                    child: Text(
+                                                      document["Name"],
+                                                      style:
+                                                          GoogleFonts.inter(
+                                                        // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Color.fromARGB(
+                                                            255, 0, 0, 0),
+                                                      ),
+                                                      softWrap: true,
+                                                      maxLines: 1,
+                                                    )),
+                                                Container(
+                                                    // color: Colors.cyan,
+                                                    width: 200,
+                                                    height: 75,
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Center(
+                                                        child: Text(
+                                                          document["info"],
+                                                          style: GoogleFonts
+                                                              .inter(
+                                                            // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500,
+                                                            color: Color
+                                                                .fromARGB(255,
+                                                                    0, 0, 0),
                                                           ),
+                                                          softWrap: true,
                                                         ),
-                                                      )),
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  StreamBuilder(
-                                                      stream: FirebaseFirestore
-                                                          .instance
-                                                          .collection('user')
-                                                          .doc(user!.uid)
-                                                          .snapshots(),
-                                                      builder:
-                                                          (context, snapshot) {
-                                                        if (snapshot.hasData) {
-                                                          bool Data = snapshot.data?.data()?['have_book'];
-                                                          return ElevatedButton(
-                                                            onPressed: document[
-                                                                    "status"] || Data
-                                                                ? () {
-                                                                    showAwesomeDialog3(
-                                                                        context);
-
-                                                                    // print("พอเเล้วพอเสียที");
-                                                                  }
-                                                                : () {
-                                                                    showAwesomeDialog(
-                                                                        context,
-                                                                        document,
-                                                                        collection1);
-                                                                  },
-                                                            style: document[
-                                                                    "status"]
-                                                                ? ElevatedButton
-                                                                    .styleFrom(
-                                                                    primary:
-                                                                        Colors
-                                                                            .red,
-                                                                    onPrimary:
-                                                                        Colors
-                                                                            .white,
-                                                                    padding: EdgeInsets.symmetric(
-                                                                        vertical:
-                                                                            5,
-                                                                        horizontal:
-                                                                            5), // การระบุขนาดของปุ่ม
-                                                                    shape: RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(20)),
-                                                                    elevation:
-                                                                        5,
-                                                                  )
-                                                                : ElevatedButton
-                                                                    .styleFrom(
-                                                                    primary: Colors
-                                                                        .orange,
-                                                                    onPrimary:
-                                                                        Colors
-                                                                            .white,
-                                                                    padding: EdgeInsets.symmetric(
-                                                                        vertical:
-                                                                            5,
-                                                                        horizontal:
-                                                                            5), // การระบุขนาดของปุ่ม
-                                                                    shape: RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(20)),
-                                                                    elevation:
-                                                                        5,
-                                                                  ),
-                                                            child: document[
-                                                                    "status"]
-                                                                ? Text(
-                                                                    "ถูกยืมเเล้ว",
-                                                                    style: GoogleFonts
-                                                                        .inter(
-                                                                      // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                                      fontSize:
-                                                                          17,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color: Colors
+                                                      ),
+                                                    )),
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                StreamBuilder(
+                                                    stream: FirebaseFirestore
+                                                        .instance
+                                                        .collection('user')
+                                                        .doc(user!.uid)
+                                                        .snapshots(),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      if (snapshot.hasData) {
+                                                        bool Data = snapshot.data?.data()?['have_book'];
+                                                        return ElevatedButton(
+                                                          onPressed: document[
+                                                                  "status"] || Data
+                                                              ? () {
+                                                                  showAwesomeDialog3(
+                                                                      context);
+                          
+                                                                  // print("พอเเล้วพอเสียที");
+                                                                }
+                                                              : () {
+                                                                  showAwesomeDialog(
+                                                                      context,
+                                                                      document,
+                                                                      collection1);
+                                                                },
+                                                          style: document[
+                                                                  "status"]
+                                                              ? ElevatedButton
+                                                                  .styleFrom(
+                                                                  primary:
+                                                                      Colors
+                                                                          .red,
+                                                                  onPrimary:
+                                                                      Colors
                                                                           .white,
-                                                                    ),
-                                                                  )
-                                                                : Text(
-                                                                    "จอง",
-                                                                    style: GoogleFonts
-                                                                        .inter(
-                                                                      // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                                      fontSize:
-                                                                          17,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color: Colors
+                                                                  padding: EdgeInsets.symmetric(
+                                                                      vertical:
+                                                                          5,
+                                                                      horizontal:
+                                                                          5), // การระบุขนาดของปุ่ม
+                                                                  shape: RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(20)),
+                                                                  elevation:
+                                                                      5,
+                                                                )
+                                                              : ElevatedButton
+                                                                  .styleFrom(
+                                                                  primary: Colors
+                                                                      .orange,
+                                                                  onPrimary:
+                                                                      Colors
                                                                           .white,
-                                                                    ),
+                                                                  padding: EdgeInsets.symmetric(
+                                                                      vertical:
+                                                                          5,
+                                                                      horizontal:
+                                                                          5), // การระบุขนาดของปุ่ม
+                                                                  shape: RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(20)),
+                                                                  elevation:
+                                                                      5,
+                                                                ),
+                                                          child: document[
+                                                                  "status"]
+                                                              ? Text(
+                                                                  "ถูกยืมเเล้ว",
+                                                                  style: GoogleFonts
+                                                                      .inter(
+                                                                    // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                                    fontSize:
+                                                                        17,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white,
                                                                   ),
-                                                          );
-                                                        } else {
-                                                          return CircularProgressIndicator();
-                                                        }
-                                                      }),
-                                                ],
-                                              ),
+                                                                )
+                                                              : Text(
+                                                                  "จอง",
+                                                                  style: GoogleFonts
+                                                                      .inter(
+                                                                    // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                                    fontSize:
+                                                                        17,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                ),
+                                                        );
+                                                      } else {
+                                                        return CircularProgressIndicator();
+                                                      }
+                                                    }),
+                                              ],
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ),

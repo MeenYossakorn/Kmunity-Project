@@ -24,6 +24,12 @@ class mailscreen extends StatelessWidget {
   //   "assets/images/boardgame.png",
    
   // ];
+  List text = [
+    "เช็คหนังสือที่ยืม",
+    "เช็คห้องที่จอง",
+    "เช็คบอร์ดเกมที่ยืม"
+
+  ];
     return Scaffold(
       backgroundColor: Colors.orange,
       body: Container(
@@ -112,10 +118,13 @@ class mailscreen extends StatelessWidget {
                               const SizedBox(
                                   width: 16), // เพิ่มช่องว่างระหว่าง Container
                               Text(
-                                'Your text here',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
+                                text[index],
+                              style: GoogleFonts.inter(
+                                // textStyle: Theme.of(context).textTheme.titleLarge,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              
                                 ),
                               ),
                             ],

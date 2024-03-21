@@ -105,197 +105,196 @@ class _bookingroomscreenState extends State<bookingroomscreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    Positioned(
-                      top: 158,
-                      left: 50,
-                      right: 50,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Color(0xFFFF7302),
-                          boxShadow: const [
-                            BoxShadow(
-                              blurRadius: 10,
-                              color: Color.fromARGB(161, 110, 110, 110),
-                              offset: Offset(0, 0),
-                            )
+                    Row(
+                          children: [
+                            SizedBox(width: 75,),
+                            Expanded(
+                              flex: 5,
+                              child: Container(
+                                height: 35,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Color(0xFFFF7302),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          blurRadius: 10,
+                                          color: Color.fromARGB(161, 110, 110, 110),
+                                          offset: Offset(0, 0),
+                                        )
+                                      ],
+                                    ),
+                        
+                                    child: Center(
+                                      child: Text(
+                                        "เลือกห้อง",
+                                        style: GoogleFonts.inter(
+                                          // textStyle: Theme.of(context).textTheme.titleLarge,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                              ),
+                            ),
+                            SizedBox(width: 75,)
                           ],
                         ),
-                        width: 142,
-                        height: 30,
-                        child: Center(
-                          child: Text(
-                            "เลือกห้อง",
-                            style: GoogleFonts.inter(
-                              // textStyle: Theme.of(context).textTheme.titleLarge,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
                     Padding(padding: EdgeInsets.only(top: 2.5)),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Positioned(
-                        top: 243,
-                        left: 50,
-                        right: 50,
-                        child: Container(
-                          // color: Colors.blue,
-                          width: 350,
-                          height: 450,
-
-                          child: GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 1, // จำนวนคอลัมน์ในแต่ละแถว
-                              childAspectRatio:
-                                  1.5, // สัดส่วนของความสูงต่อความกว้าง
-                            ),
-                            itemCount: _documents.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              DocumentSnapshot document = _documents[index];
-                              return Center(
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 0, 0, 5.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Color.fromARGB(15, 255, 174, 0),
-                                      // color: Colors.black,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Padding(
-                                            padding: EdgeInsets.fromLTRB(
-                                                10.0, 0, 0, 0)),
-                                        Container(
-                                          width: 125,
-                                          height: 120,
-                                          child: Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                5.0, 0, 0, 0),
-                                            child: Image.network(
-                                                document["image"]),
-                                          ),
+                      child: Container(
+                        // color: Colors.blue,
+                        width: 350,
+                        height: 450,
+                      
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1, // จำนวนคอลัมน์ในแต่ละแถว
+                            childAspectRatio:
+                                1.5, // สัดส่วนของความสูงต่อความกว้าง
+                          ),
+                          itemCount: _documents.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            DocumentSnapshot document = _documents[index];
+                            return Center(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(0, 0, 0, 5.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Color.fromARGB(15, 255, 174, 0),
+                                    // color: Colors.black,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                          padding: EdgeInsets.fromLTRB(
+                                              10.0, 0, 0, 0)),
+                                      Container(
+                                        width: 125,
+                                        height: 120,
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              5.0, 0, 0, 0),
+                                          child: Image.network(
+                                              document["image"]),
                                         ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Container(
-                                          // color: Colors.amber,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    // color: Colors.black,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    boxShadow: const [
-                                                      BoxShadow(
-                                                        blurRadius: 5,
-                                                        color: Color.fromARGB(
-                                                            160, 72, 72, 72),
-                                                        offset: Offset(0, 0),
-                                                      )
-                                                    ],
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Container(
+                                        // color: Colors.amber,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  // color: Colors.black,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10),
+                                                  boxShadow: const [
+                                                    BoxShadow(
+                                                      blurRadius: 5,
+                                                      color: Color.fromARGB(
+                                                          160, 72, 72, 72),
+                                                      offset: Offset(0, 0),
+                                                    )
+                                                  ],
+                                                ),
+                                                // color: Colors.cyan,
+                                                width: 100,
+                                                height: 20,
+                                                child: Center(
+                                                  child: Text(
+                                                    document["Name"],
+                                                    style: GoogleFonts.inter(
+                                                      // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Color.fromARGB(
+                                                          255, 0, 0, 0),
+                                                    ),
+                                                    softWrap: true,
+                                                    maxLines: 1,
                                                   ),
-                                                  // color: Colors.cyan,
-                                                  width: 100,
-                                                  height: 20,
+                                                )),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Container(
+                                                // color: Colors.cyan,
+                                                width: 200,
+                                                height: 80,
+                                                child: SingleChildScrollView(
                                                   child: Center(
                                                     child: Text(
-                                                      document["Name"],
-                                                      style: GoogleFonts.inter(
+                                                      document["Detail"],
+                                                      style:
+                                                          GoogleFonts.inter(
                                                         // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                        fontSize: 15,
+                                                        fontSize: 12,
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         color: Color.fromARGB(
                                                             255, 0, 0, 0),
                                                       ),
                                                       softWrap: true,
-                                                      maxLines: 1,
                                                     ),
-                                                  )),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Container(
-                                                  // color: Colors.cyan,
-                                                  width: 200,
-                                                  height: 80,
-                                                  child: SingleChildScrollView(
-                                                    child: Center(
-                                                      child: Text(
-                                                        document["Detail"],
-                                                        style:
-                                                            GoogleFonts.inter(
-                                                          // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Color.fromARGB(
-                                                              255, 0, 0, 0),
-                                                        ),
-                                                        softWrap: true,
-                                                      ),
-                                                    ),
-                                                  )),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            selectroomscreen(document)),
-                                                  );
-                                                },
-                                                style: ElevatedButton.styleFrom(
-                                                  primary: Colors.orange,
-                                                  onPrimary: Colors.white,
-
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 5,
-                                                      horizontal:
-                                                          5), // การระบุขนาดของปุ่ม
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20)),
-                                                  elevation: 5,
-                                                ),
-                                                child: Text(
-                                                  "จอง",
-                                                  style: GoogleFonts.inter(
-                                                    // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                    fontSize: 17,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white,
                                                   ),
+                                                )),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          selectroomscreen(document)),
+                                                );
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                primary: Colors.orange,
+                                                onPrimary: Colors.white,
+                      
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 5,
+                                                    horizontal:
+                                                        5), // การระบุขนาดของปุ่ม
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20)),
+                                                elevation: 5,
+                                              ),
+                                              child: Text(
+                                                "จอง",
+                                                style: GoogleFonts.inter(
+                                                  // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
                                                 ),
-                                              )
-                                            ],
-                                          ),
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              );
-                            },
-                          ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ),

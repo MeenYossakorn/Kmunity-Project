@@ -19,7 +19,6 @@ class userscreen extends StatefulWidget {
   State<userscreen> createState() => _userscreenState();
 }
 
-
 class _userscreenState extends State<userscreen> {
   User? user = FirebaseAuth.instance.currentUser;
   @override
@@ -69,78 +68,104 @@ class _userscreenState extends State<userscreen> {
                         ],
                       ),
                       width: width - 40,
-                      height: 165,
+                      height: 145,
                       child: StreamBuilder(
                           stream: FirebaseFirestore.instance
+                              //     .collection('information')
+                              // .snapshots(),
                               .collection('user')
                               .doc(user!.uid)
                               .snapshots(),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              var img = snapshot.data?.data()?['image'];
-                              var name = snapshot.data?.data()?['name'];
-                              var email = snapshot.data?.data()?['email'];
+                              List a = [
+                                snapshot.data?.data()?['image'],
+                                snapshot.data?.data()?['name'],
+                                snapshot.data?.data()?['email']
+                              ];
                               return Row(
-                                children: [
-                                  SizedBox(width: 5,),
-                                  Positioned(
-                                    top: 124,
-                                    left: 10,
-                                    right: 50,
+                                children: <Widget>[
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    flex: 1,
                                     child: Container(
-                                        decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          gradient: LinearGradient(
-                                            begin: Alignment.topRight,
-                                            end: Alignment.bottomLeft,
-                                            colors: [
-                                              Colors.white,
-                                              Colors.orange
-                                            ],
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.amber,
+                                        gradient: LinearGradient(
+                                          begin: Alignment.topRight,
+                                          end: Alignment.bottomLeft,
+                                          colors: [Colors.white, Colors.orange],
+                                        ),
+                                      ),
+                                      height: 100,
+                                      child: Center(
+                                        child: Container(
+                                          width: 90,
+                                          height: 90,
+                                          child: ClipOval(
+                                            child: Image.network(
+                                              a[0],
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
                                         ),
-                                        width: 134,
-                                        height: 134,
-                                        child: Center(
-                                          child: CircleAvatar(
-                                            radius: 61,
-                                            backgroundImage: NetworkImage(
-                                                img ),
-                                          ),
-                                        )),
+                                      ),
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  Column(
-                                    children: [
-                                      SizedBox(
-                                    height: 75,
-                                  ),
-                                      Text(
-                                        name,
-                                        style: GoogleFonts.inter(
-                                          // textStyle: Theme.of(context).textTheme.titleLarge,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: const Color(0xFFFF7500),
+                                  Expanded(
+                                      flex: 2,
+                                      child: Container(
+                                        height: 100,
+                                        // color: Colors.amber,
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                              height: 25,
+                                            ),
+                                            Row(
+                                              children: [SizedBox(
+                                              width: 18,
+                                            ),
+                                                Text(
+                                                  a[1],
+                                                  style: GoogleFonts.inter(
+                                                    // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: const Color(0xFFFF7500),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Row(
+                                              children: [
+
+                                                SizedBox(
+                                              width: 20,
+                                            ),
+                                                Text(
+                                                  a[2],
+                                                  style: GoogleFonts.inter(
+                                                    // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: const Color(0xFFFF7500),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                      SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    email,
-                                    style: GoogleFonts.inter(
-                                      // textStyle: Theme.of(context).textTheme.titleLarge,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w700,
-                                      color: const Color(0xFFFF7500),
-                                    ),
-                                  ),
-                                    ],
-                                  ),
-                                  
+                                      ))
                                 ],
                               );
                             } else {
@@ -149,11 +174,13 @@ class _userscreenState extends State<userscreen> {
                               );
                             }
                           }))),
+                          
               Positioned(
-                  top: 300,
+                  top: 270,
                   left: 10,
                   right: 10,
-                  child: Container(
+                  child: 
+                  Container(
                     width: width - 40,
                     height: height * 0.6,
                     decoration: const BoxDecoration(
@@ -210,7 +237,7 @@ class _userscreenState extends State<userscreen> {
                         ),
                         Container(
                           width: 380,
-                          height: 300,
+                          height: 360,
                           decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.all(Radius.circular(24)),
@@ -229,7 +256,7 @@ class _userscreenState extends State<userscreen> {
                                       snapshot.data?.data()?['degree'],
                                       snapshot.data?.data()?['faculty'],
                                       snapshot.data?.data()?['major'],
-                                      snapshot.data?.data()?['department '],
+                                      snapshot.data?.data()?['department'],
                                       snapshot.data?.data()?['id_student']
                                     ];
                                     List topicstu = [
@@ -280,7 +307,7 @@ class _userscreenState extends State<userscreen> {
                                                 ),
                                               ],
                                             ),
-                                            
+
                                           ],
                                         );
                                       },
@@ -291,23 +318,12 @@ class _userscreenState extends State<userscreen> {
                                 }),
                           ),
                         )
-
-                        // SingleChildScrollView(
-                        //   child: Column(
-                        //     children: List.generate(
-                        //       15,
-                        //       (index) => ListTile(
-                        //         title: Text('Item $index'),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ),
-                  ))
+                  )
+              )
             ],
           )),
-
     );
   }
 }

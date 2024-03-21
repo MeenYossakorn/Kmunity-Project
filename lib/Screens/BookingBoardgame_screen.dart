@@ -110,258 +110,257 @@ class _bookingboardgamescreenState extends State<bookingboardgamescreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    Positioned(
-                      top: 158,
-                      left: 50,
-                      right: 50,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Color(0xFFFF7302),
-                          boxShadow: const [
-                            BoxShadow(
-                              blurRadius: 10,
-                              color: Color.fromARGB(161, 110, 110, 110),
-                              offset: Offset(0, 0),
-                            )
+                    Row(
+                          children: [
+                            SizedBox(width: 75,),
+                            Expanded(
+                              flex: 5,
+                              child: Container(
+                                height: 35,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Color(0xFFFF7302),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          blurRadius: 10,
+                                          color: Color.fromARGB(161, 110, 110, 110),
+                                          offset: Offset(0, 0),
+                                        )
+                                      ],
+                                    ),
+                        
+                                    child: Center(
+                                      child: Text(
+                                        "เลือกบอร์ดเกม",
+                                        style: GoogleFonts.inter(
+                                          // textStyle: Theme.of(context).textTheme.titleLarge,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                              ),
+                            ),
+                            SizedBox(width: 75,)
                           ],
                         ),
-                        width: 142,
-                        height: 30,
-                        child: Center(
-                          child: Text(
-                            "เลือกบอร์ดเกม",
-                            style: GoogleFonts.inter(
-                              // textStyle: Theme.of(context).textTheme.titleLarge,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
                     Padding(padding: EdgeInsets.only(top: 15.0)),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
-                      child: Positioned(
-                        top: 243,
-                        left: 50,
-                        right: 50,
-                        child: Container(
-                          // color: Colors.blue,
-                          width: 350,
-                          height: 450,
-
-                          child: GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 1, // จำนวนคอลัมน์ในแต่ละแถว
-                              childAspectRatio:
-                                  1, // สัดส่วนของความสูงต่อความกว้าง
-                            ),
-                            itemCount: _documents.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              DocumentSnapshot document = _documents[index];
-                              List d = document["Detail"];
-                              return Center(
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 0, 0, 5.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Color(0x0FFF7200),
-                                      // color: Colors.black,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          // color: Colors.black,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            InkWell(
-                                              onTap: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          detailboardgamescreen(
-                                                              document["Name"],
-                                                              d,
-                                                              document["image"],
-                                                              document.id,
-                                                              collection1,
-                                                              document)),
-                                                );
-                                              },
-                                              child: Container(
-                                                width: 250,
-                                                height: 80,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.fromLTRB(
-                                                          5.0, 0, 0, 0),
-                                                  child: Image.network(
-                                                      document["image"]),
-                                                ),
+                      child: Container(
+                        // color: Colors.blue,
+                        width: 350,
+                        height: 450,
+                      
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1, // จำนวนคอลัมน์ในแต่ละแถว
+                            childAspectRatio:
+                                1, // สัดส่วนของความสูงต่อความกว้าง
+                          ),
+                          itemCount: _documents.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            DocumentSnapshot document = _documents[index];
+                            List d = document["Detail"];
+                            return Center(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(0, 0, 0, 5.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Color(0x0FFF7200),
+                                    // color: Colors.black,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        // color: Colors.black,
+                                        borderRadius:
+                                            BorderRadius.circular(10),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        detailboardgamescreen(
+                                                            document["Name"],
+                                                            d,
+                                                            document["image"],
+                                                            document.id,
+                                                            collection1,
+                                                            document)),
+                                              );
+                                            },
+                                            child: Container(
+                                              width: 250,
+                                              height: 80,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        5.0, 0, 0, 0),
+                                                child: Image.network(
+                                                    document["image"]),
                                               ),
                                             ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Center(
-                                              child: Container(
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Center(
+                                            child: Container(
+                                                child: Text(
+                                              document["Name"],
+                                              style: GoogleFonts.inter(
+                                                // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                              ),
+                                              softWrap: true,
+                                              maxLines: 1,
+                                            )),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Container(
+                                              // color: Colors.cyan,
+                                              width: 256,
+                                              height: 120,
+                                              child: SingleChildScrollView(
+                                                child: Center(
                                                   child: Text(
-                                                document["Name"],
-                                                style: GoogleFonts.inter(
-                                                  // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Color.fromARGB(
-                                                      255, 0, 0, 0),
-                                                ),
-                                                softWrap: true,
-                                                maxLines: 1,
-                                              )),
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Container(
-                                                // color: Colors.cyan,
-                                                width: 256,
-                                                height: 120,
-                                                child: SingleChildScrollView(
-                                                  child: Center(
-                                                    child: Text(
-                                                      document["info"],
-                                                      style: GoogleFonts.inter(
-                                                        // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: Color.fromARGB(
-                                                            255, 0, 0, 0),
-                                                      ),
-                                                      softWrap: true,
+                                                    document["info"],
+                                                    style: GoogleFonts.inter(
+                                                      // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Color.fromARGB(
+                                                          255, 0, 0, 0),
                                                     ),
+                                                    softWrap: true,
                                                   ),
-                                                )),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            StreamBuilder(
-                                                stream: FirebaseFirestore
-                                                    .instance
-                                                    .collection('user')
-                                                    .doc(user!.uid)
-                                                    .snapshots(),
-                                                builder: (context, snapshot) {
-                                                  if (snapshot.hasData) {
-                                                    bool Data = snapshot.data
-                                                        ?.data()?['have_boardgame'];
-                                                    return ElevatedButton(
-                                                      onPressed:
-                                                          document["status"] ||
-                                                                  Data
-                                                              ? () {
-                                                                  showAwesomeDialog3(
-                                                                      context);
-
-                                                                  // print("พอเเล้วพอเสียที");
-                                                                }
-                                                              : () {
-                                                                  showAwesomeDialog(
-                                                                      context,
-                                                                      document,
-                                                                      collection1);
-                                                                },
-                                                      style: document["status"]
-                                                          ? ElevatedButton
-                                                              .styleFrom(
-                                                              primary:
-                                                                  Colors.red,
-                                                              onPrimary:
-                                                                  Colors.white,
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                      vertical:
-                                                                          5,
-                                                                      horizontal:
-                                                                          5), // การระบุขนาดของปุ่ม
-                                                              shape: RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              20)),
-                                                              elevation: 5,
-                                                            )
-                                                          : ElevatedButton
-                                                              .styleFrom(
-                                                              primary:
-                                                                  Colors.orange,
-                                                              onPrimary:
-                                                                  Colors.white,
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                      vertical:
-                                                                          5,
-                                                                      horizontal:
-                                                                          5), // การระบุขนาดของปุ่ม
-                                                              shape: RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              20)),
-                                                              elevation: 5,
+                                                ),
+                                              )),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          StreamBuilder(
+                                              stream: FirebaseFirestore
+                                                  .instance
+                                                  .collection('user')
+                                                  .doc(user!.uid)
+                                                  .snapshots(),
+                                              builder: (context, snapshot) {
+                                                if (snapshot.hasData) {
+                                                  bool Data = snapshot.data
+                                                      ?.data()?['have_boardgame'];
+                                                  return ElevatedButton(
+                                                    onPressed:
+                                                        document["status"] ||
+                                                                Data
+                                                            ? () {
+                                                                showAwesomeDialog3(
+                                                                    context);
+                      
+                                                                // print("พอเเล้วพอเสียที");
+                                                              }
+                                                            : () {
+                                                                showAwesomeDialog(
+                                                                    context,
+                                                                    document,
+                                                                    collection1);
+                                                              },
+                                                    style: document["status"]
+                                                        ? ElevatedButton
+                                                            .styleFrom(
+                                                            primary:
+                                                                Colors.red,
+                                                            onPrimary:
+                                                                Colors.white,
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    vertical:
+                                                                        5,
+                                                                    horizontal:
+                                                                        5), // การระบุขนาดของปุ่ม
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20)),
+                                                            elevation: 5,
+                                                          )
+                                                        : ElevatedButton
+                                                            .styleFrom(
+                                                            primary:
+                                                                Colors.orange,
+                                                            onPrimary:
+                                                                Colors.white,
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    vertical:
+                                                                        5,
+                                                                    horizontal:
+                                                                        5), // การระบุขนาดของปุ่ม
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20)),
+                                                            elevation: 5,
+                                                          ),
+                                                    child: document["status"]
+                                                        ? Text(
+                                                            "ถูกยืมเเล้ว",
+                                                            style: GoogleFonts
+                                                                .inter(
+                                                              // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                              fontSize: 17,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: Colors
+                                                                  .white,
                                                             ),
-                                                      child: document["status"]
-                                                          ? Text(
-                                                              "ถูกยืมเเล้ว",
-                                                              style: GoogleFonts
-                                                                  .inter(
-                                                                // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                                fontSize: 17,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                            )
-                                                          : Text(
-                                                              "จอง",
-                                                              style: GoogleFonts
-                                                                  .inter(
-                                                                // textStyle: Theme.of(context).textTheme.titleLarge,
-                                                                fontSize: 17,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
+                                                          )
+                                                        : Text(
+                                                            "จอง",
+                                                            style: GoogleFonts
+                                                                .inter(
+                                                              // textStyle: Theme.of(context).textTheme.titleLarge,
+                                                              fontSize: 17,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: Colors
+                                                                  .white,
                                                             ),
-                                                    );
-                                                  } else {
-                                                    return CircularProgressIndicator();
-                                                  }
-                                                }),
-                                          ],
-                                        ),
+                                                          ),
+                                                  );
+                                                } else {
+                                                  return CircularProgressIndicator();
+                                                }
+                                              }),
+                                        ],
                                       ),
                                     ),
                                   ),
                                 ),
-                              );
-                            },
-                          ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ),
