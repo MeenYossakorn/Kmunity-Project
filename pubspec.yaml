@@ -53,6 +53,7 @@ dependencies:
   uuid: ^4.3.3
   msh_checkbox: ^2.0.1
   firebase_storage: 11.6.9
+  image: ^4.1.7
 
 dev_dependencies:
   flutter_test:
